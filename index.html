@@ -112,9 +112,9 @@
                      <div>
                         <h3 class="text-sm font-medium text-blue-300 mb-2">Geopolitical & Market Sentiment</h3>
                          <div class="p-3 bg-black bg-opacity-20 rounded-lg font-mono text-xs text-green-400">
-                            <div id="data-stream" class="h-24 relative overflow-hidden">
-                                </div>
-                        </div>
+                             <div id="data-stream" class="h-24 relative overflow-hidden">
+                                 </div>
+                         </div>
                     </div>
                     <div>
                         <h3 class="text-sm font-medium text-blue-300 mb-2">Monitored Assets</h3>
@@ -153,7 +153,7 @@
             <aside id="data-panel-container" class="w-1/3 xl:w-1/4 flex-shrink-0 border-l border-gray-800 z-10 data-panel-hidden">
                 <div id="data-panel" class="h-full p-4 overflow-y-auto glass-pane">
                     <div id="data-panel-content">
-                        </div>
+                         </div>
                     <div id="data-panel-placeholder" class="h-full flex flex-col items-center justify-center text-center text-gray-500">
                        <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <h3 class="font-semibold text-lg text-gray-400">No Node Selected</h3>
@@ -176,7 +176,7 @@
             { id: 4, label: 'Sequoia', group: 'person', title: 'Sequoia Capital - Venture Capital', mass: 18 },
             { id: 5, label: 'Founders Fund', group: 'person', title: 'Peter Thiel - Contrarian Tech', mass: 15 },
             { id: 6, label: 'Bridgewater', group: 'person', title: 'Ray Dalio - Global Macro', mass: 15 },
-            { id: 7, label: 'BlackRock', group: 'person', title: 'Global Asset Manager', mass: 20 },
+            { id: 7, label: 'BlackRock', group: 'person', title: 'Global Asset Manager', mass: 22 },
             { id: 8, label: 'Tiger Global', group: 'person', title: 'Growth Equity', mass: 15 },
 
             // Philosophies
@@ -226,8 +226,11 @@
             // a16z Investments
             { from: 3, to: 204, label: 'Investor' },
             { from: 3, to: 208, label: 'Investor' },
-            { from: 3, to: 209, label: 'Investor' },
+            { from: 3, to: 209, label: 'Early Investor' },
             { from: 3, to: 211, label: 'Proponent' },
+            { from: 3, to: 207, label: 'Investor'},
+            { from: 3, to: 210, label: 'Investor'},
+
 
             // Sequoia Investments
             { from: 4, to: 203, label: 'Early Investor' },
@@ -243,24 +246,27 @@
             { from: 7, to: 201, label: 'Top Holding' },
             { from: 7, to: 202, label: 'Top Holding' },
             { from: 7, to: 203, label: 'Top Holding' },
+            { from: 7, to: 212, label: 'Top Holding' },
+            { from: 7, to: 213, label: 'Top Holding' },
+
 
             // Tiger Global Investments
             { from: 8, to: 207, label: 'Lead Investor'},
             { from: 8, to: 208, label: 'Lead Investor'},
-            
-            // Cross-Pollination
-            { from: 3, to: 207, label: 'Investor'},
+            { from: 8, to: 213, label: 'Investor'},
+
 
             // Company -> Philosophy Alignment (Implied)
-            { from: 203, to: 102, dashes: true, color: { color: '#6b7280' } },
-            { from: 204, to: 102, dashes: true, color: { color: '#6b7280' } },
-            { from: 206, to: 102, dashes: true, color: { color: '#6b7280' } },
-            { from: 209, to: 103, dashes: true, color: { color: '#6b7280' } },
-            { from: 211, to: 103, dashes: true, color: { color: '#6b7280' } },
-            { from: 205, to: 104, dashes: true, color: { color: '#6b7280' } },
-            { from: 210, to: 104, dashes: true, color: { color: '#6b7280' } },
-            { from: 201, to: 101, dashes: true, color: { color: '#6b7280' } },
-
+            { from: 203, to: 102, dashes: true, color: { color: '#6b7280' } }, // NVIDIA -> Disruptive Innovation
+            { from: 204, to: 102, dashes: true, color: { color: '#6b7280' } }, // OpenAI -> Disruptive Innovation
+            { from: 206, to: 102, dashes: true, color: { color: '#6b7280' } }, // Tesla -> Disruptive Innovation
+            { from: 209, to: 103, dashes: true, color: { color: '#6b7280' } }, // Coinbase -> Web3
+            { from: 211, to: 103, dashes: true, color: { color: '#6b7280' } }, // Ethereum -> Web3
+            { from: 205, to: 104, dashes: true, color: { color: '#6b7280' } }, // SpaceX -> Deep Tech
+            { from: 210, to: 104, dashes: true, color: { color: '#6b7280' } }, // Anduril -> Deep Tech
+            { from: 201, to: 101, dashes: true, color: { color: '#6b7280' } }, // Apple -> Value & Quality
+            { from: 212, to: 101, dashes: true, color: { color: '#6b7280' } }, // Amazon -> Value & Quality
+            { from: 202, to: 106, dashes: true, color: { color: '#6b7280' } }, // Microsoft -> Diversified
         ];
         
         const nodeDetails = {
@@ -269,49 +275,121 @@
                 type: 'Conglomerate / Value Investor',
                 description: 'Led by Warren Buffett, Berkshire Hathaway is a multinational conglomerate that wholly owns and holds major stakes in a diverse range of companies. Its investment philosophy is rooted in deep value, seeking out high-quality, durable companies ("moats") at fair prices.',
                 primary_philosophy: 'Value & Quality',
-                major_holdings: 'Apple, Bank of America, American Express, Coca-Cola, Chevron'
+                major_holdings: 'Apple, Bank of America, American Express, Coca-Cola, Chevron, Amazon'
             },
             2: {
                 name: 'ARK Invest',
                 type: 'Asset Manager / Growth Investor',
                 description: 'Founded by Cathie Wood, ARK Invest focuses exclusively on disruptive innovation. Their actively managed ETFs target technologies like artificial intelligence, DNA sequencing, robotics, energy storage, and blockchain technology.',
                 primary_philosophy: 'Disruptive Innovation',
-                major_holdings: 'Tesla, Coinbase, Roku, Block Inc., Zoom'
+                major_holdings: 'Tesla, Coinbase, Roku, Block Inc., Zoom, Palantir'
             },
             3: {
                 name: 'Andreessen Horowitz (a16z)',
                 type: 'Venture Capital',
                 description: 'A prominent Silicon Valley venture capital firm that invests from seed to late-stage. Known for its thesis-driven approach, particularly "Software is Eating the World," and its major push into Web3 and crypto technologies.',
                 primary_philosophy: 'Web3 & Decentralization',
-                notable_investments: 'OpenAI, Databricks, Stripe, Coinbase, Roblox'
+                notable_investments: 'OpenAI, Databricks, Stripe, Coinbase, Roblox, Anduril'
             },
             4: {
                 name: 'Sequoia Capital',
                 type: 'Venture Capital',
                 description: 'One of the most legendary venture capital firms, Sequoia has a track record of backing iconic technology companies from their earliest stages. They focus on all sectors, with a strong emphasis on enterprise software, AI, and fintech.',
                 primary_philosophy: 'Disruptive Innovation',
-                notable_investments: 'NVIDIA, Stripe, Databricks, Snowflake, DoorDash'
+                notable_investments: 'NVIDIA, Stripe, Databricks, Snowflake, DoorDash, OpenAI'
             },
             5: {
                 name: 'Founders Fund',
                 type: 'Venture Capital',
                 description: 'A contrarian venture capital firm led by Peter Thiel. Founders Fund invests in companies tackling massive, difficult problems in "atoms" as well as "bits," backing ambitious deep technology in areas like aerospace, AI, and national security.',
                 primary_philosophy: 'Contrarian & Deep Tech',
-                notable_investments: 'SpaceX, Anduril, Stripe, Palantir'
+                notable_investments: 'SpaceX, Anduril, Stripe, Palantir, Neuralink'
+            },
+            6: {
+                name: 'Bridgewater Associates',
+                type: 'Hedge Fund / Global Macro',
+                description: 'Founded by Ray Dalio, Bridgewater is one of the world\'s largest hedge funds. It operates as a "global macro firm," employing quantitative methods to construct portfolios with uncorrelated returns based on macroeconomic and geopolitical trends.',
+                primary_philosophy: 'Global Macro',
+                strategy: 'Systematic diversification, Alpha/Beta separation, Risk Parity'
+            },
+            7: {
+                name: 'BlackRock',
+                type: 'Global Asset Manager',
+                description: 'The world\'s largest asset manager, led by Larry Fink. BlackRock provides a vast range of investment and technology solutions, from iShares ETFs that track market indices to active management strategies. Their scale gives them significant influence on corporate governance.',
+                primary_philosophy: 'Diversified Indexing & Long-Termism',
+                AUM: '$10.5 Trillion+',
+                key_products: 'iShares ETFs, Aladdin (Risk Management Platform)'
+            },
+            8: {
+                name: 'Tiger Global',
+                type: 'Hedge Fund / Growth Equity',
+                description: 'Led by Chase Coleman, Tiger Global employs a high-growth investing philosophy, focusing on public and private tech companies. They are known for rapid, large-scale investments in startups with a venture capital-like approach to growth equity.',
+                primary_philosophy: 'Disruptive Innovation & Global Growth',
+                notable_investments: 'Meta, Microsoft, Sea Ltd, Coupang, Wiz, Databricks'
+            },
+            101: {
+                name: 'Value & Quality Investing',
+                type: 'Philosophy',
+                description: 'An investment paradigm that involves buying securities that appear underpriced by some form of fundamental analysis. Proponents seek high-quality businesses with durable competitive advantages (a "moat") and aim to hold them for the long term.',
+                proponents: 'Berkshire Hathaway, many traditional funds',
+                linked_assets: 'Apple, Amazon, Coca-Cola'
+            },
+            102: {
+                name: 'Disruptive Innovation',
+                type: 'Philosophy',
+                description: 'A strategy focused on identifying and investing in companies that are creating new markets or disrupting existing ones with technological advancements. This approach carries higher risk but aims for exponential growth.',
+                proponents: 'ARK Invest, Sequoia, Tiger Global',
+                linked_tech: 'AI, Genomics, Robotics, EV'
+            },
+            103: {
+                name: 'Web3 & Decentralization',
+                type: 'Philosophy',
+                description: 'An investment thesis centered on the belief that blockchain technology and decentralization will form the architecture of the next era of the internet. It covers everything from cryptocurrencies to DAOs and decentralized applications.',
+                proponents: 'a16z, Paradigm, Union Square Ventures',
+                linked_assets: 'Ethereum, Bitcoin, Coinbase, DeFi Protocols'
+            },
+            104: {
+                name: 'Contrarian & Deep Tech',
+                type: 'Philosophy',
+                description: 'A strategy of investing against prevailing market sentiment ("be greedy when others are fearful") and backing companies solving fundamental, difficult scientific and engineering problems. This philosophy targets industries with high technical risk but transformative potential.',
+                proponents: 'Founders Fund (Peter Thiel)',
+                linked_tech: 'Aerospace, Fusion Energy, AI, Defense Tech, Biotech'
+            },
+            105: {
+                name: 'Global Macro',
+                type: 'Philosophy',
+                description: 'An investment strategy based on the analysis and forecasting of large-scale geopolitical and economic events. It involves taking opportunistic, often leveraged, positions in currency, interest rate, commodity, or equity markets worldwide.',
+                proponents: 'Bridgewater Associates (Ray Dalio), Soros Fund Management',
+                linked_instruments: 'Sovereign Debt, Currencies, Indices'
+            },
+            106: {
+                name: 'Diversified Indexing',
+                type: 'Philosophy',
+                description: 'A passive investment strategy that aims to replicate the performance of a broad market index (e.g., S&P 500). It is based on the principle of market efficiency, seeking to capture market-wide returns at a low cost rather than trying to outperform the market.',
+                proponents: 'BlackRock, Vanguard Group',
+                linked_products: 'ETFs (e.g., iShares, VOO), Mutual Funds'
             },
             201: {
                 name: 'Apple Inc.',
                 type: 'Company / Consumer Technology',
                 description: 'Designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. Its ecosystem of hardware, software (iOS), and services is a core holding for value and quality investors.',
-                valuation: '~$3 Trillion (Market Cap)',
+                market_cap: '~$3 Trillion',
                 sector: 'Technology',
                 key_investors: 'Berkshire Hathaway, BlackRock, Vanguard'
+            },
+            202: {
+                name: 'Microsoft Corp.',
+                type: 'Company / Software & Cloud',
+                description: 'A dominant force in enterprise and consumer software, cloud computing (Azure), and a pivotal player in AI through its own development and strategic partnership with OpenAI. A key holding for broad market index funds.',
+                market_cap: '~$3.5 Trillion',
+                sector: 'Technology / AI',
+                key_investors: 'BlackRock, Vanguard, Fidelity'
             },
             203: {
                 name: 'NVIDIA Corporation',
                 type: 'Company / AI Hardware',
                 description: 'The dominant provider of graphics processing units (GPUs) which are the essential hardware backbone for training and running artificial intelligence models. Their central role in the AI revolution has driven massive growth.',
-                valuation: '~$3 Trillion (Market Cap)',
+                market_cap: '~$3 Trillion',
                 sector: 'Artificial Intelligence',
                 key_investors: 'Sequoia, BlackRock, Vanguard'
             },
@@ -319,64 +397,84 @@
                 name: 'OpenAI',
                 type: 'Company / AI Research',
                 description: 'An AI research and deployment company. Its mission is to ensure that artificial general intelligence (AGI) benefits all of humanity. Creator of the groundbreaking GPT series of models and DALL-E.',
-                valuation: '$80-90 Billion',
+                valuation: '$80-90 Billion (Private)',
                 sector: 'Artificial Intelligence',
-                key_investors: 'Microsoft, a16z, Sequoia'
+                key_investors: 'Microsoft, a16z, Sequoia, Khosla Ventures'
             },
             205: {
                 name: 'SpaceX',
                 type: 'Company / Aerospace',
                 description: 'Designs, manufactures, and launches advanced rockets and spacecraft. The company was founded by Elon Musk to revolutionize space technology, with the ultimate goal of enabling people to live on other planets.',
-                valuation: '~$180 Billion',
+                valuation: '~$180 Billion (Private)',
                 sector: 'Aerospace & Defense',
-                key_investors: 'Founders Fund, Google, Fidelity'
+                key_investors: 'Founders Fund, Google, Fidelity, David Sacks'
+            },
+            206: {
+                name: 'Tesla, Inc.',
+                type: 'Company / EV & Energy',
+                description: 'Designs, manufactures, and sells high-performance electric vehicles, energy generation and storage systems. A key holding for investors focused on disruptive innovation in automotive, energy, and AI.',
+                market_cap: '~$580 Billion',
+                sector: 'Automotive / AI',
+                key_investors: 'ARK Invest, The Vanguard Group, BlackRock'
             },
             207: {
                 name: 'Stripe',
                 type: 'Company / Fintech',
                 description: 'Builds economic infrastructure for the internet. Businesses of all sizes use its software to accept payments and manage their businesses online. A key player in the digital economy.',
-                valuation: '$65 Billion',
+                valuation: '$65 Billion (Private)',
                 sector: 'Fintech',
                 key_investors: 'a16z, Sequoia, Founders Fund, Tiger Global'
             },
             208: {
                 name: 'Databricks',
                 type: 'Company / Enterprise AI',
-                description: 'A data and AI company that provides a unified "Data Lakehouse" platform for data engineering, data science, machine learning, and analytics. A critical tool for large enterprises deploying AI.',
-                valuation: '$43 Billion',
+                description: 'A data and AI company that provides a unified "Data Lakehouse" platform for data engineering, machine learning, and analytics. A critical tool for large enterprises deploying AI.',
+                valuation: '$43 Billion (Private)',
                 sector: 'Artificial Intelligence',
-                key_investors: 'a16z, Tiger Global, Morgan Stanley'
+                key_investors: 'a16z, Tiger Global, Sequoia, Microsoft'
+            },
+            209: {
+                name: 'Coinbase',
+                type: 'Company / Crypto Exchange',
+                description: 'Operates a leading cryptocurrency exchange platform. A key gateway for retail and institutional investors to the Web3 economy. A pivotal investment for firms with a decentralization thesis.',
+                market_cap: '~$60 Billion',
+                sector: 'Fintech / Web3',
+                key_investors: 'a16z, Ribbit Capital, Union Square Ventures, ARK Invest'
             },
             210: {
                 name: 'Anduril Industries',
                 type: 'Company / Defense Tech',
                 description: 'A defense technology company that builds AI-powered hardware and software to solve complex national security challenges. Focuses on autonomous systems, drones, and command & control platforms.',
-                valuation: '$8.5 Billion',
+                valuation: '$8.5 Billion (Private)',
                 sector: 'Aerospace & Defense',
-                key_investors: 'Founders Fund, a16z'
+                key_investors: 'Founders Fund, a16z, General Catalyst'
             },
-             101: {
-                name: 'Value & Quality Investing',
-                type: 'Philosophy',
-                description: 'An investment paradigm that involves buying securities that appear underpriced by some form of fundamental analysis. Proponents seek high-quality businesses with durable competitive advantages (a "moat") and aim to hold them for the long term.',
-                proponents: 'Berkshire Hathaway, many traditional funds',
-                linked_assets: 'Apple, Amazon, Coca-Cola'
+            211: {
+                name: 'Ethereum',
+                type: 'Technology / Blockchain',
+                description: 'An open-source, decentralized blockchain platform that features smart contract functionality. It enables the creation of decentralized applications (dApps) and non-fungible tokens (NFTs), forming the backbone of DeFi and Web3.',
+                market_cap: '~$450 Billion',
+                sector: 'Web3',
+                proponents: 'a16z, ConsenSys, Ethereum Foundation'
             },
-             102: {
-                name: 'Disruptive Innovation',
-                type: 'Philosophy',
-                description: 'A strategy focused on identifying and investing in companies that are creating new markets or disrupting existing ones with technological advancements. This approach carries higher risk but aims for exponential growth.',
-                proponents: 'ARK Invest, Sequoia, Tiger Global',
-                linked_tech: 'AI, Genomics, Robotics, EV'
+            212: {
+                name: 'Amazon',
+                type: 'Company / E-commerce & Cloud',
+                description: 'A global leader in e-commerce, but also the dominant player in cloud infrastructure through Amazon Web Services (AWS), which provides the computing backbone for countless startups and enterprises.',
+                market_cap: '~$1.9 Trillion',
+                sector: 'Technology / Cloud',
+                key_investors: 'Berkshire Hathaway, BlackRock, Vanguard'
             },
-             103: {
-                name: 'Web3 & Decentralization',
-                type: 'Philosophy',
-                description: 'An investment thesis centered on the belief that blockchain technology and decentralization will form the architecture of the next era of the internet. It covers everything from cryptocurrencies to DAOs and decentralized applications.',
-                proponents: 'a16z, Paradigm, Union Square Ventures',
-                linked_assets: 'Ethereum, Bitcoin, Coinbase, DeFi Protocols'
+            213: {
+                name: 'Meta Platforms',
+                type: 'Company / Social Media & Metaverse',
+                description: 'Owns a family of social media applications including Facebook, Instagram, and WhatsApp. Making significant investments in developing the metaverse and advancing open-source AI with its Llama models.',
+                market_cap: '~$1.2 Trillion',
+                sector: 'Technology / AI',
+                key_investors: 'BlackRock, Vanguard, Tiger Global, ARK Invest'
             }
         };
+
 
         // --- DOM Elements ---
         const container = document.getElementById('knowledge-graph');
@@ -400,7 +498,7 @@
                     highlight: '#3b82f6',
                 },
                 arrows: {
-                    to: { enabled: true, scaleFactor: 0.6 }
+                    to: { enabled: true, scaleFactor: 0.6, type: 'arrow' }
                 },
                 font: {
                     color: '#9ca3af',
@@ -490,13 +588,13 @@
         // --- Geopolitical Sentiment Streamer ---
         const streamContainer = document.getElementById('data-stream');
         const streamItems = [
-            "VECTOR SHIFT: Positive sentiment on Sino-US AI safety talks.",
-            "ALERT: Chip export restrictions impacting supply chains.",
-            "TREND: Sovereign wealth funds increasing allocation to private deep tech.",
-            "ANALYSIS: a16z report indicates cooling in consumer crypto, heating in infra.",
-            "SIGNAL: Anduril secures major new autonomous systems contract.",
-            "MARKET: Increased volatility in SaaS multiples amid rate uncertainty.",
-            "POLICY: EU AI Act implementation timeline causing sector jitters."
+            "VECTOR SHIFT: Sino-US AI safety talks stall; US committee urges AISI to focus on China's AI threat.",
+            "ALERT: US chip export restrictions create supply chain friction for advanced AI nodes.",
+            "TREND: Sovereign wealth funds increasing allocation to private deep tech, incl. AI, quantum, and advanced manufacturing.",
+            "ANALYSIS: a16z report shows builder energy shifting to Solana & Base; infrastructure costs are decreasing, enabling new consumer apps.",
+            "SIGNAL: Anduril secures major new $642M CUAS contract with US Marine Corps.",
+            "MARKET: SaaS valuation multiples contract to 3.3x NTM; investor caution persists amid economic uncertainty.",
+            "POLICY: EU AI Act implementation is phased; ban on high-risk AI starts Feb 2025, with full compliance by mid-2026."
         ];
         let currentStreamItem = 0;
 
