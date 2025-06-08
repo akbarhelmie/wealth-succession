@@ -17,19 +17,19 @@
         #graph-container {
             background: radial-gradient(circle at center, #111827, #030712);
         }
-      .panel {
+       .panel {
             background-color: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-      .progress-bar-bg { background-color: #374151; }
+       .progress-bar-bg { background-color: #374151; }
         #search-bar {
             background-color: #1f2937;
             border: 1px solid #4b5563;
         }
-      .info-list-item { border-bottom: 1px solid #374151; }
-      .info-list-item:last-child { border-bottom: none; }
-      .flash-update {
+       .info-list-item { border-bottom: 1px solid #374151; }
+       .info-list-item:last-child { border-bottom: none; }
+       .flash-update {
             animation: flash 0.8s ease-in-out;
         }
         @keyframes flash {
@@ -37,23 +37,39 @@
             50% { background-color: #374151; }
             100% { background-color: #1f2937; }
         }
+        /* Custom scrollbar for webkit browsers */
+        .overflow-y-auto::-webkit-scrollbar {
+            width: 6px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-track {
+            background: #1f2937;
+            border-radius: 3px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 3px;
+        }
+        .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
     </style>
 </head>
 <body class="w-screen h-screen">
 
     <div class="relative w-full h-full flex">
-        <div class="absolute top-4 left-4 z-10 w-[320px] h-[calc(100vh-2rem)] p-4 rounded-xl panel flex flex-col">
-            <h1 class="text-xl font-bold text-white mb-4">Asset Explorer</h1>
-            <input type="text" id="search-bar" placeholder="Search 1000+ assets..." class="w-full p-2 rounded-md text-sm text-gray-200 mb-4">
+        <div class="absolute top-4 left-4 z-10 w-[350px] h-[calc(100vh-2rem)] p-4 rounded-xl panel flex flex-col">
+            <h1 class="text-xl font-bold text-white mb-4">Global Asset Explorer</h1>
+            <input type="text" id="search-bar" placeholder="Search 1000+ assets, people, ideas..." class="w-full p-2 rounded-md text-sm text-gray-200 mb-4">
             
             <div id="left-panel-content" class="flex flex-col gap-6 overflow-y-auto pr-2">
                 <div id="default-panel-view">
-                     <h2 class="text-lg font-semibold text-white mb-3">Dominant Market Philosophies</h2>
-                     <div class="space-y-3">
-                         <div><div class="flex justify-between text-sm mb-1"><span>Disruptive Innovation</span><span>35%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-purple-500 h-2 rounded-full" style="width: 35%"></div></div></div>
-                         <div><div class="flex justify-between text-sm mb-1"><span>Value & Quality</span><span>25%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 25%"></div></div></div>
-                         <div><div class="flex justify-between text-sm mb-1"><span>Decentralization</span><span>20%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-yellow-500 h-2 rounded-full" style="width: 20%"></div></div></div>
-                         <div><div class="flex justify-between text-sm mb-1"><span>Global Macro</span><span>12%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-sky-500 h-2 rounded-full" style="width: 12%"></div></div></div>
+                    <h2 class="text-lg font-semibold text-white mb-3">Dominant Market Philosophies</h2>
+                    <div class="space-y-3">
+                        <div><div class="flex justify-between text-sm mb-1"><span>Disruptive Innovation</span><span>35%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-purple-500 h-2 rounded-full" style="width: 35%"></div></div></div>
+                        <div><div class="flex justify-between text-sm mb-1"><span>Value & Quality</span><span>25%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 25%"></div></div></div>
+                        <div><div class="flex justify-between text-sm mb-1"><span>Decentralization</span><span>20%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-yellow-500 h-2 rounded-full" style="width: 20%"></div></div></div>
+                        <div><div class="flex justify-between text-sm mb-1"><span>Geopolitical Hedging</span><span>12%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-sky-500 h-2 rounded-full" style="width: 12%"></div></div></div>
+                         <div><div class="flex justify-between text-sm mb-1"><span>ESG & Sustainability</span><span>8%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-pink-500 h-2 rounded-full" style="width: 8%"></div></div></div>
                     </div>
                 </div>
 
@@ -63,9 +79,9 @@
                 </div>
 
                 <div>
-                    <h2 class="text-lg font-semibold text-white mb-3">Live Sentiment & News</h2>
+                    <h2 class="text-lg font-semibold text-white mb-3">Live Activity Feed</h2>
                     <div id="sentiment-panel" class="bg-gray-900 p-3 rounded-lg min-h-[80px]">
-                        <p class="text-sm font-mono text-gray-400">Select or search an asset.</p>
+                        <p class="text-sm font-mono text-gray-400">Select or search an asset to see live data.</p>
                     </div>
                 </div>
             </div>
@@ -73,9 +89,9 @@
 
         <div id="info-panel" class="absolute top-4 right-4 z-10 w-96 p-5 rounded-xl panel hidden max-h-[calc(100vh-2rem)] overflow-y-auto">
             <h2 id="info-title" class="text-xl font-bold text-blue-300 mb-2"></h2>
-            <div class="flex items-center gap-2 mb-4">
-                 <span id="info-category" class="inline-block bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold"></span>
-                 <span id="info-marketcap" class="inline-block bg-gray-600 text-gray-200 px-3 py-1 rounded-full text-xs font-semibold"></span>
+            <div class="flex items-center gap-2 mb-4 flex-wrap">
+                <span id="info-category" class="inline-block bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold"></span>
+                <span id="info-marketcap" class="inline-block bg-gray-600 text-gray-200 px-3 py-1 rounded-full text-xs font-semibold"></span>
             </div>
             <div id="info-details" class="space-y-4"></div>
         </div>
@@ -83,280 +99,390 @@
         <div id="graph-container" class="w-full h-full"></div>
     </div>
 
-    <script type="text/javascript">
-        let liveSentimentInterval = null;
+<script type="text/javascript">
+// --- DATA GENERATION: 1000+ NODES ---
+// This section programmatically creates a rich, interconnected dataset.
 
-        const assetData = {
-            'bitcoin': {
-                label: 'Bitcoin', group: 'crypto', value: 45, marketCap: '$1.4T',
-                vectors: { 'Decentralization': 60, 'Digital Gold': 25, 'Inflation Hedge': 15 },
-                sentiments:,
-                relations: {
-                    people:,
-                    companies:
-                }
-            },
-            'nvidia': {
-                label: 'NVIDIA', group: 'stock', value: 42, marketCap: '$3.1T',
-                vectors: { 'AI Dominance': 50, 'Disruptive Growth': 30, 'Geopolitical Chip Race': 20 },
-                sentiments:,
-                relations: {
-                    people:,
-                    companies:
-                }
-            },
-            'gold': {
-                label: 'Gold', group: 'commodity', value: 35, marketCap: '$15.8T',
-                vectors: { 'Safe Haven': 55, 'Inflation Hedge': 30, 'Central Bank Demand': 15 },
-                sentiments:,
-                relations: {
-                    people:,
-                    companies:
-                }
-            },
-            'ethereum': {
-                label: 'Ethereum', group: 'crypto', value: 38, marketCap: '$450B',
-                vectors: { 'Decentralization': 40, 'Smart Contracts': 45, 'DeFi Ecosystem': 15 },
-                sentiments:,
-                relations: {
-                    people:,
-                    companies:
-                }
-            },
-            'us_treasury_10y': {
-                label: 'US 10-Year Treasury', group: 'bond', value: 30, marketCap: 'N/A (Sovereign Debt)',
-                vectors: { 'Risk-Free Benchmark': 60, 'Monetary Policy Signal': 25, 'Global Safe Haven': 15 },
-                sentiments:,
-                relations: {
-                    people:,
-                    companies:
-                }
-            },
-            'sp500_etf': {
-                label: 'S&P 500 ETF (SPY)', group: 'etf', value: 36, marketCap: '$540B (SPY only)',
-                vectors: { 'Diversified Indexing': 70, 'US Market Exposure': 20, 'Passive Investing': 10 },
-                sentiments:,
-                relations: {
-                    people:,
-                    companies:
-                }
-            }
+const generateMasterData = () => {
+    let masterData = {};
+
+    // --- ENTITY DEFINITIONS ---
+    // Core Assets, People, Companies, and Concepts
+    const coreEntities = {
+        // Philosophies & Concepts
+        'philosophy_value': { id: 'philosophy_value', label: 'Value Investing', group: 'philosophy', description: 'Investing in undervalued assets compared to their intrinsic worth.' },
+        'philosophy_growth': { id: 'philosophy_growth', label: 'Disruptive Growth', group: 'philosophy', description: 'Investing in companies with high growth potential that disrupt existing markets.' },
+        'philosophy_decentral': { id: 'philosophy_decentral', label: 'Decentralization', group: 'philosophy', description: 'Distributing power away from a central authority, core to crypto and Web3.' },
+        'concept_ai': { id: 'concept_ai', label: 'AI Revolution', group: 'concept', description: 'The rapid advancement and adoption of artificial intelligence across all industries.' },
+        'concept_geopolitics_us_cn': { id: 'concept_geopolitics_us_cn', label: 'US-China Rivalry', group: 'geopolitics', description: 'Ongoing strategic competition between the US and China affecting trade, tech, and markets.' },
+        'concept_inflation': { id: 'concept_inflation', label: 'Inflationary Pressures', group: 'macro', description: 'The rate at which the general level of prices for goods and services is rising, and subsequently, purchasing power is falling.' },
+        'concept_fed_policy': { id: 'concept_fed_policy', label: 'Federal Reserve Policy', group: 'macro', description: 'Actions undertaken by the US central bank to manipulate the money supply and credit conditions to stimulate or restrain economic activity.' },
+        'concept_esg': { id: 'concept_esg', label: 'ESG Investing', group: 'philosophy', description: 'Focusing on Environmental, Social, and Governance factors in investment decisions.' },
+
+        // People
+        'person_jensen': { id: 'person_jensen', label: 'Jensen Huang', group: 'person', role: 'CEO of NVIDIA', relations: { advocates: ['concept_ai'] } },
+        'person_satoshi': { id: 'person_satoshi', label: 'Satoshi Nakamoto', group: 'person', role: 'Pseudonymous Creator of Bitcoin', relations: { advocates: ['philosophy_decentral'] } },
+        'person_buffett': { id: 'person_buffett', label: 'Warren Buffett', group: 'person', role: 'CEO of Berkshire Hathaway', relations: { advocates: ['philosophy_value'] } },
+        'person_wood': { id: 'person_wood', label: 'Cathie Wood', group: 'person', role: 'CEO of ARK Invest', relations: { advocates: ['philosophy_growth'] } },
+        'person_powell': { id: 'person_powell', label: 'Jerome Powell', group: 'person', role: 'Chair of the Federal Reserve', relations: { influences: ['concept_fed_policy'] } },
+        'person_nadella': { id: 'person_nadella', label: 'Satya Nadella', group: 'person', role: 'CEO of Microsoft', relations: { advocates: ['concept_ai'] } },
+
+        // Companies & Organizations
+        'company_nvidia': { id: 'company_nvidia', label: 'NVIDIA', group: 'stock', marketCap: '$3.1T', relations: { ceo: 'person_jensen', competes_with: ['company_amd'], supplier_to: ['company_microsoft'], influenced_by: ['concept_geopolitics_us_cn', 'concept_ai'] } },
+        'company_microsoft': { id: 'company_microsoft', label: 'Microsoft', group: 'stock', marketCap: '$3.2T', relations: { ceo: 'person_nadella', competes_with: ['company_google'], influenced_by: ['concept_ai'] } },
+        'company_berkshire': { id: 'company_berkshire', label: 'Berkshire Hathaway', group: 'stock', marketCap: '$880B', relations: { ceo: 'person_buffett', influenced_by: ['philosophy_value', 'concept_inflation'] } },
+        'company_ark': { id: 'company_ark', label: 'ARK Invest', group: 'asset_manager', marketCap: '$12B AUM', relations: { ceo: 'person_wood', influenced_by: ['philosophy_growth'] } },
+        'company_tsmc': { id: 'company_tsmc', label: 'TSMC', group: 'stock', marketCap: '$840B', relations: { supplier_to: ['company_nvidia', 'company_apple'], influenced_by: ['concept_geopolitics_us_cn'] } },
+        'company_apple': { id: 'company_apple', label: 'Apple', group: 'stock', marketCap: '$3.3T', relations: {} },
+
+        // Primary Assets
+        'asset_bitcoin': { id: 'asset_bitcoin', label: 'Bitcoin', group: 'crypto', marketCap: '$1.4T', vectors: { 'Decentralization': 60, 'Digital Gold': 25, 'Inflation Hedge': 15 }, relations: { created_by: 'person_satoshi', influenced_by: ['concept_inflation', 'philosophy_decentral'] } },
+        'asset_gold': { id: 'asset_gold', label: 'Gold', group: 'commodity', marketCap: '$15.8T', vectors: { 'Safe Haven': 55, 'Inflation Hedge': 30, 'Central Bank Demand': 15 }, relations: { influenced_by: ['concept_inflation', 'concept_geopolitics_us_cn'] } },
+        'asset_spy': { id: 'asset_spy', label: 'S&P 500 ETF (SPY)', group: 'etf', marketCap: '$540B', vectors: { 'Diversified Indexing': 70, 'US Market Exposure': 20, 'Passive Investing': 10 }, relations: { influenced_by: ['concept_fed_policy'] } },
+        'asset_10y': { id: 'asset_10y', label: 'US 10-Year Treasury', group: 'bond', marketCap: 'N/A', vectors: { 'Risk-Free Benchmark': 60, 'Monetary Policy Signal': 25, 'Global Safe Haven': 15 }, relations: { influenced_by: ['concept_fed_policy', 'concept_inflation'] } },
+    };
+
+    // Populate masterData with core entities
+    for (const [id, data] of Object.entries(coreEntities)) {
+        masterData[id] = { ...data, id };
+    }
+
+    // --- PROCEDURAL GENERATION ---
+    // Generate ~1000 additional assets to create a dense graph
+    const stockPrefixes = ['Apex', 'Quantum', 'Stellar', 'Orion', 'BlueWave', 'Vertex', 'Nova', 'Pinnacle', 'Summit', 'Core'];
+    const stockSuffixes = ['Dynamics', 'Solutions', 'Ventures', 'Holdings', 'Industries', 'Enterprises', 'Group', 'Labs', 'Systems', 'Technologies'];
+    const fundPrefixes = ['Horizon', 'Meridian', 'Prosperity', 'Global', 'Momentum', 'Alpha', 'Keystone', 'Bedrock', 'Navigator', 'Spectrum'];
+    const fundSuffixes = ['Capital', 'Partners', 'Asset Management', 'Growth Fund', 'Value Trust', 'Equity Group'];
+    const cryptoPrefixes = ['Zenith', 'Aether', 'Chronos', 'Helios', 'Nyx', 'Orbis', 'Solara', 'Cypher', 'Kairo', 'Onyx'];
+    const cryptoSuffixes = ['Coin', 'Chain', 'Protocol', 'Network', 'Ledger', 'DAO'];
+    
+    const assetGroups = ['stock', 'etf', 'reit', 'private_equity'];
+    const philosophies = ['philosophy_value', 'philosophy_growth', 'concept_esg'];
+    const macroFactors = ['concept_inflation', 'concept_fed_policy', 'concept_geopolitics_us_cn'];
+
+    let assetCount = 0;
+    const totalAssetsToGenerate = 1000;
+
+    // Generate stocks
+    for (let i = 0; i < 400; i++) {
+        const id = `gen_stock_${i}`;
+        const label = `${stockPrefixes[i % stockPrefixes.length]} ${stockSuffixes[Math.floor(i / stockPrefixes.length) % stockSuffixes.length]}`;
+        masterData[id] = {
+            id, label, group: 'stock', marketCap: `$${(Math.random() * 200 + 5).toFixed(0)}B`,
+            vectors: { 'Market Exposure': 60, 'Sector Bet': 40 },
+            relations: { influenced_by: [macroFactors[i % macroFactors.length]] },
+            sentiments: [{ title: `Analysts issue 'Buy' rating on strong quarterly earnings.`, type: 'NEWS', impact: 'Positive', color: 'text-green-400' }]
         };
-        
-        function generateMockData(count) {
-            const mockData = {};
-            const prefixes =;
-            const suffixes =;
-            const groups = ['stock', 'etf', 'bond', 'reit', 'mutual_fund', 'private_equity', 'hedge_fund'];
-            const genericSentiments =;
+    }
 
-            for(let i=0; i < count; i++) {
-                const id = `mock_asset_${i}`;
-                const group = groups[i % groups.length];
-                const label = `${prefixes[i % prefixes.length]} ${suffixes[(i+Math.floor(i/prefixes.length)) % suffixes.length]}`;
-                mockData[id] = {
-                    label: label,
-                    group: group,
-                    value: 8 + Math.random() * 12, 
-                    marketCap: `$${(Math.random() * 200 + 10).toFixed(0)}B`,
-                    vectors: {'Diversified Indexing': 50 + Math.floor(Math.random()*20), 'Sector Focus': 20 + Math.floor(Math.random()*10), 'Risk Managed': 10 + Math.floor(Math.random()*10)},
-                    sentiments:], // Cycle through generic sentiments
-                    relations: { people:, companies: } // Mock assets have no detailed relations for performance
-                };
-            }
-            return mockData;
-        }
+    // Generate funds
+    for (let i = 0; i < 300; i++) {
+        const id = `gen_fund_${i}`;
+        const label = `${fundPrefixes[i % fundPrefixes.length]} ${fundSuffixes[Math.floor(i / fundPrefixes.length) % fundSuffixes.length]}`;
+        masterData[id] = {
+            id, label, group: 'hedge_fund', marketCap: `$${(Math.random() * 50 + 1).toFixed(0)}B AUM`,
+            vectors: { 'Alpha Generation': 70, 'Risk Management': 30 },
+            relations: { advocates: [philosophies[i % philosophies.length]] },
+            sentiments: [{ title: `Reports net inflows of $${(Math.random() * 500).toFixed(0)}M for the quarter.`, type: 'REPORT', impact: 'Neutral', color: 'text-gray-400' }]
+        };
+    }
+    
+    // Generate crypto
+    for (let i = 0; i < 300; i++) {
+        const id = `gen_crypto_${i}`;
+        const label = `${cryptoPrefixes[i % cryptoPrefixes.length]}${cryptoSuffixes[Math.floor(i / cryptoPrefixes.length) % cryptoSuffixes.length]}`;
+        masterData[id] = {
+            id, label, group: 'crypto', marketCap: `$${(Math.random() * 20 + 0.1).toFixed(1)}B`,
+            vectors: { 'Protocol Utility': 50, 'Speculative Asset': 50 },
+            relations: { influenced_by: ['philosophy_decentral'] },
+            sentiments: [{ title: `Major partnership announced with a DeFi protocol.`, type: 'SOCIAL', impact: 'Positive', color: 'text-green-400' }]
+        };
+    }
 
-        const mockAssets = generateMockData(994); 
-        Object.assign(assetData, mockAssets);
-        const primaryAssetIds = ['bitcoin', 'nvidia', 'gold', 'ethereum', 'us_treasury_10y', 'sp500_etf'];
+    // Add detailed sentiments and relations to a few core assets for demo purposes
+    masterData['company_nvidia'].sentiments = [
+        { title: 'Exceeds quarterly revenue forecast on strong AI chip demand.', type: 'EARNINGS', impact: 'Bullish', color: 'text-green-400' },
+        { title: 'Faces new export restrictions on advanced chips to China.', type: 'GEOPOLITICS', impact: 'Bearish', color: 'text-red-400' },
+        { title: 'Announces next-gen "Blackwell" GPU architecture.', type: 'PRODUCT', impact: 'Bullish', color: 'text-green-400' }
+    ];
+     masterData['asset_bitcoin'].sentiments = [
+        { title: 'Spot Bitcoin ETF sees record daily inflows.', type: 'MARKET', impact: 'Bullish', color: 'text-green-400' },
+        { title: 'Fed policy hints at rate cuts, potentially boosting risk assets.', type: 'MACRO', impact: 'Positive', color: 'text-green-400' },
+        { title: 'Hashrate hits all-time high, securing the network.', type: 'TECHNICAL', impact: 'Positive', color: 'text-green-400' }
+    ];
+     masterData['asset_gold'].sentiments = [
+        { title: 'Central banks continue to increase gold reserves amid geopolitical tension.', type: 'MACRO', impact: 'Bullish', color: 'text-green-400' },
+        { title: 'Higher-than-expected inflation print boosts safe-haven demand.', type: 'ECONOMICS', impact: 'Positive', color: 'text-green-400' },
+    ];
 
-        const container = document.getElementById('graph-container');
-        const searchBar = document.getElementById('search-bar');
-        const defaultPanelView = document.getElementById('default-panel-view');
-        const assetSpecificView = document.getElementById('asset-specific-view');
-        const vectorTitle = document.getElementById('vector-title');
-        const philosophyVectors = document.getElementById('philosophy-vectors');
-        const sentimentPanel = document.getElementById('sentiment-panel');
-        const infoPanel = document.getElementById('info-panel');
-        const infoTitle = document.getElementById('info-title');
-        const infoCategory = document.getElementById('info-category');
-        const infoMarketCap = document.getElementById('info-marketcap');
-        const infoDetails = document.getElementById('info-details');
+    // Final check to ensure all data has default empty values where needed.
+    Object.values(masterData).forEach(d => {
+        d.vectors = d.vectors || {};
+        d.relations = d.relations || {};
+        d.sentiments = d.sentiments || [{ title: 'No recent activity.', type: 'SYSTEM', impact: 'Neutral', color: 'text-gray-500' }];
+    });
+    
+    return masterData;
+};
 
-        let allNodesDataSet = new vis.DataSet(Object.keys(assetData).map(id => ({ id, label: assetData[id].label, group: assetData[id].group, value: assetData[id].value })));
-        let primaryNodesDataSet = new vis.DataSet(allNodesDataSet.get({ filter: item => primaryAssetIds.includes(item.id) }));
-        let currentDisplayedNodes = new vis.DataSet(primaryNodesDataSet.get()); 
-        let edges = new vis.DataSet();
-        
-        let network = new vis.Network(container, { nodes: currentDisplayedNodes, edges }, {
-            nodes: { borderWidth: 2, shape: 'dot', font: { color: '#e5e7eb', size: 14 }, scaling: { label: { min: 14, max: 24 }}},
-            edges: { width: 2, color: { color: '#4b5563', highlight: '#a78bfa' }, smooth: { type: 'dynamic' }, arrows: { to: { enabled: true, scaleFactor: 0.7 } } },
-            physics: { barnesHut: { gravitationalConstant: -50000, centralGravity: 0.2, springLength: 300, damping: 0.25, avoidOverlap: 0.1 }, solver: 'barnesHut' },
-            interaction: { hover: true, navigationButtons: true, keyboard: true },
-            groups: {
-                crypto:   { color: { background:'#facc15', border: '#eab308' }},
-                stock:    { color: { background:'#60a5fa', border: '#3b82f6' }},
-                commodity:{ color: { background:'#34d399', border: '#059669' }},
-                bond:     { color: { background:'#f87171', border: '#ef4444' }},
-                etf:      { color: { background:'#a78bfa', border: '#8b5cf6' }},
-                reit:     { color: { background:'#c084fc', border: '#9333ea' }},
-                mutual_fund: { color: { background:'#fb7185', border: '#e11d48' }},
-                private_equity: {color: {background: '#fdba74', border: '#f97316'}},
-                hedge_fund: {color: {background: '#818cf8', border: '#4f46e5'}},
-                person:   { shape: 'ellipse', color: { background: '#fb923c', border: '#f97316' }},
-                company:  { shape: 'box', color: { background: '#9ca3af', border: '#6b7280' }}
-            }
-        });
+const assetData = generateMasterData();
 
-        function updatePanels(assetId) {
-            const data = assetData[assetId];
-            if (!data) return;
+// --- UI & DOM ELEMENT REFERENCES ---
+const container = document.getElementById('graph-container');
+const searchBar = document.getElementById('search-bar');
+const defaultPanelView = document.getElementById('default-panel-view');
+const assetSpecificView = document.getElementById('asset-specific-view');
+const vectorTitle = document.getElementById('vector-title');
+const philosophyVectors = document.getElementById('philosophy-vectors');
+const sentimentPanel = document.getElementById('sentiment-panel');
+const infoPanel = document.getElementById('info-panel');
+const infoTitle = document.getElementById('info-title');
+const infoCategory = document.getElementById('info-category');
+const infoMarketCap = document.getElementById('info-marketcap');
+const infoDetails = document.getElementById('info-details');
+let liveSentimentInterval = null;
 
-            vectorTitle.innerText = `${data.label} Vectors`;
-            philosophyVectors.innerHTML = '';
-            Object.entries(data.vectors).forEach(([name, value]) => {
-                const colors = { 'Decentralization': 'bg-yellow-500', 'AI Dominance': 'bg-purple-500', 'Safe Haven': 'bg-green-500', 'Digital Gold': 'bg-yellow-600', 'Inflation Hedge': 'bg-orange-500', 'Disruptive Growth': 'bg-pink-500', 'Geopolitical Chip Race': 'bg-red-500', 'Smart Contracts': 'bg-blue-500', 'DeFi Ecosystem': 'bg-indigo-500', 'Risk-Free Benchmark': 'bg-gray-500', 'Monetary Policy Signal': 'bg-teal-500', 'Global Safe Haven': 'bg-cyan-500', 'Diversified Indexing': 'bg-lime-500', 'US Market Exposure': 'bg-emerald-500', 'Passive Investing': 'bg-fuchsia-500', 'Sector Focus': 'bg-rose-500', 'Risk Managed': 'bg-violet-500' };
-                const color = colors[name] |
-| 'bg-sky-500';
-                philosophyVectors.innerHTML += `<div><div class="flex justify-between text-sm mb-1"><span>${name}</span><span>${value}%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="${color} h-2 rounded-full" style="width: ${value}%"></div></div></div>`;
+// --- VIS.JS NETWORK SETUP & CONFIGURATION ---
+const allNodes = Object.keys(assetData).map(id => {
+    const d = assetData[id];
+    let value;
+    switch(d.group) {
+        case 'stock': value = 35; break;
+        case 'crypto': value = 30; break;
+        case 'philosophy': case 'concept': value = 25; break;
+        case 'person': value = 20; break;
+        default: value = 15;
+    }
+    return { id, label: d.label, group: d.group, value };
+});
+
+const allEdges = [];
+Object.entries(assetData).forEach(([sourceId, data]) => {
+    if (data.relations) {
+        Object.entries(data.relations).forEach(([relationType, targetIds]) => {
+            // Ensure targetIds is an array
+            const targets = Array.isArray(targetIds) ? targetIds : [targetIds];
+            targets.forEach(targetId => {
+                if (assetData[targetId]) {
+                    allEdges.push({ from: sourceId, to: targetId, label: relationType.replace(/_/g, ' '), arrows: { to: { enabled: true, scaleFactor: 0.5 } } });
+                }
             });
-            defaultPanelView.classList.add('hidden');
-            assetSpecificView.classList.remove('hidden');
+        });
+    }
+});
 
-            clearInterval(liveSentimentInterval);
-            let sentimentIndex = 0;
-            const updateSentiment = () => {
-                const sentiment = data.sentiments[sentimentIndex % data.sentiments.length];
-                sentimentPanel.innerHTML = `<div class="flex justify-between items-center mb-1"><strong class="text-sm">${sentiment.type}</strong><span class="text-xs font-semibold ${sentiment.color}">${sentiment.impact}</span></div><p class="text-sm font-mono text-gray-300">${sentiment.title}</p>`;
-                sentimentPanel.classList.remove('flash-update');
-                void sentimentPanel.offsetWidth;
-                sentimentPanel.classList.add('flash-update');
-                sentimentIndex++;
-            };
-            updateSentiment();
-            if (data.sentiments.length > 1) {
-                 liveSentimentInterval = setInterval(updateSentiment, 5000);
-            }
+
+let nodes = new vis.DataSet(allNodes);
+let edges = new vis.DataSet(allEdges);
+
+// Determine primary nodes for initial view
+const primaryNodeIds = Object.keys(assetData).filter(id => 
+    ['stock', 'crypto', 'commodity', 'bond', 'etf', 'philosophy', 'geopolitics', 'macro'].includes(assetData[id].group) && !id.startsWith('gen_')
+);
+
+// We need a separate dataset for the view so we can filter it
+let displayedNodes = new vis.DataSet(nodes.get({ filter: item => primaryNodeIds.includes(item.id) }));
+let displayedEdges = new vis.DataSet(); // Start with no edges in default view
+
+let network = new vis.Network(container, { nodes: displayedNodes, edges: displayedEdges }, {
+    nodes: {
+        borderWidth: 2,
+        shape: 'dot',
+        font: { color: '#e5e7eb', size: 14, strokeWidth: 0 },
+        scaling: { label: { min: 14, max: 24 } }
+    },
+    edges: {
+        width: 1.5,
+        color: { color: 'rgba(75, 85, 99, 0.5)', highlight: '#a78bfa' },
+        smooth: { type: 'continuous' }
+    },
+    physics: {
+        barnesHut: { gravitationalConstant: -60000, centralGravity: 0.1, springLength: 250, damping: 0.3 },
+        solver: 'barnesHut',
+        stabilization: { iterations: 200 }
+    },
+    interaction: { hover: true, navigationButtons: true, keyboard: true, tooltipDelay: 200 },
+    groups: {
+        crypto:       { color: { background:'#facc15', border: '#eab308' }, shape: 'dot' },
+        stock:        { color: { background:'#60a5fa', border: '#3b82f6' }, shape: 'dot' },
+        commodity:    { color: { background:'#34d399', border: '#059669' }, shape: 'dot' },
+        bond:         { color: { background:'#f87171', border: '#ef4444' }, shape: 'dot' },
+        etf:          { color: { background:'#a78bfa', border: '#8b5cf6' }, shape: 'dot' },
+        reit:         { color: { background:'#c084fc', border: '#9333ea' }, shape: 'dot' },
+        private_equity: { color: { background: '#fdba74', border: '#f97316' }, shape: 'dot' },
+        hedge_fund:   { color: { background: '#818cf8', border: '#4f46e5' }, shape: 'dot' },
+        asset_manager:{ color: { background: '#fb7185', border: '#e11d48' }, shape: 'dot' },
+        person:       { shape: 'ellipse', color: { background: '#fb923c', border: '#f97316' } },
+        company:      { shape: 'box', color: { background: '#9ca3af', border: '#6b7280' } },
+        philosophy:   { shape: 'star', color: { background: '#d8b4fe', border: '#a855f7' }, font: { size: 18 } },
+        concept:      { shape: 'diamond', color: { background: '#a5f3fc', border: '#22d3ee' } },
+        geopolitics:  { shape: 'triangle', color: { background: '#fda4af', border: '#f43f5e' } },
+        macro:        { shape: 'triangleDown', color: { background: '#fde047', border: '#eab308' } }
+    }
+});
+
+// --- UI PANEL & EVENT HANDLERS ---
+
+function updatePanels(assetId) {
+    const data = assetData[assetId];
+    if (!data) return;
+
+    // Update Left Panel: Philosophy Vectors
+    vectorTitle.innerText = `${data.label} Vectors`;
+    philosophyVectors.innerHTML = '';
+    if (data.vectors && Object.keys(data.vectors).length > 0) {
+        Object.entries(data.vectors).forEach(([name, value]) => {
+            const colors = { 'Decentralization': 'bg-yellow-500', 'AI Dominance': 'bg-purple-500', 'Safe Haven': 'bg-green-500', 'Digital Gold': 'bg-yellow-600', 'Inflation Hedge': 'bg-orange-500', 'Disruptive Growth': 'bg-pink-500', 'Geopolitical Chip Race': 'bg-red-500', 'Smart Contracts': 'bg-blue-500', 'DeFi Ecosystem': 'bg-indigo-500', 'Risk-Free Benchmark': 'bg-gray-500', 'Monetary Policy Signal': 'bg-teal-500', 'Global Safe Haven': 'bg-cyan-500', 'Diversified Indexing': 'bg-lime-500', 'US Market Exposure': 'bg-emerald-500', 'Passive Investing': 'bg-fuchsia-500', 'Sector Focus': 'bg-rose-500', 'Risk Managed': 'bg-violet-500' };
+            const color = colors[name] || 'bg-sky-500';
+            philosophyVectors.innerHTML += `<div><div class="flex justify-between text-sm mb-1"><span>${name}</span><span>${value}%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="${color} h-2 rounded-full" style="width: ${value}%"></div></div></div>`;
+        });
+    } else {
+        philosophyVectors.innerHTML = `<p class="text-sm text-gray-400">No specific investment vectors defined.</p>`;
+    }
+    defaultPanelView.classList.add('hidden');
+    assetSpecificView.classList.remove('hidden');
+
+    // Update Left Panel: Live Sentiment
+    clearInterval(liveSentimentInterval);
+    if (data.sentiments && data.sentiments.length > 0) {
+        let sentimentIndex = 0;
+        const updateSentiment = () => {
+            const sentiment = data.sentiments[sentimentIndex % data.sentiments.length];
+            sentimentPanel.innerHTML = `<div class="flex justify-between items-center mb-1"><strong class="text-sm">${sentiment.type}</strong><span class="text-xs font-semibold ${sentiment.color}">${sentiment.impact}</span></div><p class="text-sm font-mono text-gray-300">${sentiment.title}</p>`;
+            sentimentPanel.classList.remove('flash-update');
+            void sentimentPanel.offsetWidth; // Trigger reflow
+            sentimentPanel.classList.add('flash-update');
+            sentimentIndex++;
+        };
+        updateSentiment();
+        if (data.sentiments.length > 1) {
+             liveSentimentInterval = setInterval(updateSentiment, 5000);
         }
-        
-        function updateInfoPanel(assetId) {
-            const data = assetData[assetId];
-            if (!data) return;
-            
-            infoTitle.textContent = data.label;
-            infoCategory.textContent = data.group.charAt(0).toUpperCase() + data.group.slice(1).replace(/_/g, ' ');
-            infoMarketCap.textContent = `MCap: ${data.marketCap}`;
-            infoDetails.innerHTML = '';
+    }
+}
 
-            if (data.relations.people && data.relations.people.length > 0) {
-                let peopleHtml = '<h3 class="text-md font-semibold text-gray-200 mb-2">Key People</h3><ul class="list-none space-y-2">';
-                data.relations.people.forEach(p => {
-                    peopleHtml += `<li class="info-list-item pb-2"><p class="font-semibold text-gray-100">${p.label} <span class="text-xs text-purple-400 font-normal ml-1">(${p.role})</span></p><p class="text-xs text-gray-400">${p.philosophy |
-| ''}</p></li>`;
-                });
-                infoDetails.innerHTML += peopleHtml + '</ul>';
-            }
+function updateInfoPanel(assetId) {
+    const data = assetData[assetId];
+    if (!data) return;
+    
+    infoTitle.textContent = data.label;
+    infoCategory.textContent = data.group.charAt(0).toUpperCase() + data.group.slice(1).replace(/_/g, ' ');
+    infoMarketCap.textContent = data.marketCap ? `MCap: ${data.marketCap}` : '';
+    infoMarketCap.style.display = data.marketCap ? 'inline-block' : 'none';
+    infoDetails.innerHTML = '';
 
-            if (data.relations.companies && data.relations.companies.length > 0) {
-                 let companiesHtml = '<h3 class="text-md font-semibold text-gray-200 mt-4 mb-2">Related Companies</h3><ul class="list-none space-y-2">';
-                 data.relations.companies.forEach(c => {
-                    companiesHtml += `<li class="info-list-item pb-2"><p class="font-semibold text-gray-100">${c.label} <span class="text-xs text-gray-400 font-normal ml-1">(${c.role})</span></p></li>`;
-                });
-                infoDetails.innerHTML += companiesHtml + '</ul>';
-            }
-            infoPanel.classList.remove('hidden');
-        }
-        
-        function resetToDefaultState(clearSearch = true) {
-            clearInterval(liveSentimentInterval);
-            defaultPanelView.classList.remove('hidden');
-            assetSpecificView.classList.add('hidden');
-            sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">Select or search an asset.</p>`;
-            infoPanel.classList.add('hidden');
-            
-            currentDisplayedNodes.clear();
-            currentDisplayedNodes.add(primaryNodesDataSet.get());
-            edges.clear();
-            if (clearSearch) searchBar.value = '';
-            network.fit();
-        }
+    if (data.description) {
+        infoDetails.innerHTML += `<div class="info-list-item pb-2"><p class="text-gray-300">${data.description}</p></div>`;
+    }
 
-        function displayAndExpandNode(assetId) {
-            const data = assetData[assetId];
-            if (!data) return;
-            
-            const nodesToShow =; 
-            const edgesToShow =;
-
-            if (data.relations) { // Check if relations exist
-                if (data.relations.people) {
-                    data.relations.people.forEach(p => {
-                        nodesToShow.push({ id: p.id, label: p.label, group: 'person', value: 15 });
-                        edgesToShow.push({ from: assetId, to: p.id, label: 'Related To' });
-                    });
-                }
-                if (data.relations.companies) {
-                    data.relations.companies.forEach(c => {
-                        nodesToShow.push({ id: c.id, label: c.label, group: 'company', value: 15 });
-                        edgesToShow.push({ from: assetId, to: c.id, label: 'Related To' });
-                    });
-                }
-            }
-            
-            currentDisplayedNodes.clear();
-            currentDisplayedNodes.add(nodesToShow);
-            edges.clear();
-            edges.add(edgesToShow);
-
-            network.focus(assetId, { animation: true, scale: 1.2 });
-            updatePanels(assetId);
-            updateInfoPanel(assetId);
-        }
-
-        network.on('click', function(params) {
-            if (params.nodes.length > 0) {
-                const nodeId = params.nodes; // Corrected: params.nodes is an array
-                if (assetData[nodeId]) { 
-                    displayAndExpandNode(nodeId);
-                }
-            } else {
-                resetToDefaultState();
+    const relations = allEdges.get({ filter: item => item.from === assetId || item.to === assetId });
+    if (relations.length > 0) {
+        let relationsHtml = '<h3 class="text-md font-semibold text-gray-200 mt-4 mb-2">Key Relationships</h3><ul class="list-none space-y-2">';
+        relations.forEach(r => {
+            const isSource = r.from === assetId;
+            const otherNodeId = isSource ? r.to : r.from;
+            const otherNode = assetData[otherNodeId];
+            if (otherNode) {
+                 const relationshipText = isSource 
+                    ? `${r.label || 'related to'} <span class="text-blue-300">${otherNode.label}</span>`
+                    : `<span class="text-blue-300">${otherNode.label}</span> ${r.label || 'is related to'} this entity`;
+                relationsHtml += `<li class="info-list-item pb-2 text-sm text-gray-100">${relationshipText}</li>`;
             }
         });
+        infoDetails.innerHTML += relationsHtml + '</ul>';
+    }
+    
+    infoPanel.classList.remove('hidden');
+}
 
-        searchBar.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            if (searchTerm.length === 0) {
-                resetToDefaultState();
-                return;
-            }
-            const filteredNodesData = allNodesDataSet.get({
-                filter: item => item.label.toLowerCase().includes(searchTerm) |
-| item.group.toLowerCase().includes(searchTerm)
-            });
-            
-            currentDisplayedNodes.clear();
-            currentDisplayedNodes.add(filteredNodesData);
-            edges.clear();
-            
-            if (filteredNodesData.length === 0) {
-                 sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">No assets found for "${searchTerm}".</p>`;
-                 infoPanel.classList.add('hidden');
-                 defaultPanelView.classList.remove('hidden');
-                 assetSpecificView.classList.add('hidden');
-            } else if (filteredNodesData.length === 1 && assetData.id]) {
-                displayAndExpandNode(filteredNodesData.id);
-            } else {
-                 sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">Multiple assets found. Click one to explore.</p>`;
-                 infoPanel.classList.add('hidden');
-                 defaultPanelView.classList.remove('hidden');
-                 assetSpecificView.classList.add('hidden');
-            }
-        });
+function resetToDefaultState(clearSearch = true) {
+    clearInterval(liveSentimentInterval);
+    defaultPanelView.classList.remove('hidden');
+    assetSpecificView.classList.add('hidden');
+    sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">Select or search an asset.</p>`;
+    infoPanel.classList.add('hidden');
+    
+    // Show only primary nodes and no edges
+    displayedNodes.clear();
+    displayedNodes.add(nodes.get({ filter: item => primaryNodeIds.includes(item.id) }));
+    displayedEdges.clear();
 
-        network.on("stabilizationIterationsDone", () => network.fit());
-        
-    </script>
+    if (clearSearch) searchBar.value = '';
+    network.fit({ animation: { duration: 1000, easingFunction: 'easeInOutQuad' }});
+}
+
+function displayAndExpandNode(nodeId) {
+    const data = assetData[nodeId];
+    if (!data) return;
+
+    // Get the central node and all its direct connections
+    const connectedEdges = allEdges.get({
+        filter: edge => edge.from === nodeId || edge.to === nodeId
+    });
+    
+    const connectedNodeIds = new Set([nodeId]);
+    connectedEdges.forEach(edge => {
+        connectedNodeIds.add(edge.from);
+        connectedNodeIds.add(edge.to);
+    });
+
+    displayedNodes.clear();
+    displayedNodes.add(nodes.get({ filter: item => connectedNodeIds.has(item.id) }));
+    
+    displayedEdges.clear();
+    displayedEdges.add(connectedEdges);
+
+    network.focus(nodeId, { animation: true, scale: 1.2 });
+    updatePanels(nodeId);
+    updateInfoPanel(nodeId);
+}
+
+network.on('click', function(params) {
+    if (params.nodes.length > 0) {
+        const nodeId = params.nodes[0];
+        if (assetData[nodeId]) {
+            displayAndExpandNode(nodeId);
+        }
+    } else {
+        resetToDefaultState();
+    }
+});
+
+searchBar.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    if (searchTerm.length < 2) {
+        if (searchTerm.length === 0) resetToDefaultState();
+        return;
+    }
+
+    const filteredNodesData = nodes.get({
+        filter: item => item.label.toLowerCase().includes(searchTerm) || item.group.toLowerCase().includes(searchTerm)
+    });
+    
+    displayedNodes.clear();
+    displayedNodes.add(filteredNodesData);
+    displayedEdges.clear(); // Clear edges during search for clarity
+
+    if (filteredNodesData.length === 0) {
+        sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">No assets found for "${searchTerm}".</p>`;
+    } else if (filteredNodesData.length === 1) {
+        displayAndExpandNode(filteredNodesData[0].id);
+    } else {
+         sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">${filteredNodesData.length} entities found. Click one to explore.</p>`;
+         infoPanel.classList.add('hidden');
+         defaultPanelView.classList.remove('hidden');
+         assetSpecificView.classList.add('hidden');
+    }
+});
+
+// Fit the network after stabilization
+network.on("stabilizationIterationsDone", () => {
+    network.setOptions({ physics: false }); // Turn off physics after stabilization
+});
+
+// Initial fit to center the primary nodes
+network.fit({ animation: { duration: 1500, easingFunction: 'easeInOutQuad' }});
+
+</script>
 </body>
 </html>
