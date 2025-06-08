@@ -5,15 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Succession Atlas | Global Strategy Dashboard</title>
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts: Inter & Roboto Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- vis.js for Network Graph -->
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
     <style>
@@ -70,7 +67,6 @@
 <body class="antialiased">
 
     <div class="flex h-screen w-screen flex-col">
-        <!-- Header -->
         <header class="flex-shrink-0 glass-pane z-20 border-b border-gray-800">
             <div class="container mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center space-x-3">
@@ -78,71 +74,74 @@
                     <h1 class="text-xl font-bold text-white">Succession Atlas | Global Strategy Dashboard</h1>
                 </div>
                 <div class="font-mono text-sm text-blue-300">
-                    STATUS: <span class="text-green-400 font-semibold">LIVE</span> // CLASSIFICATION: <span class="text-yellow-400">ALPHA</span>
+                    STATUS: <span class="text-green-400 font-semibold">LIVE</span> // CLASSIFICATION: <span class="text-yellow-400">STRATEGIC</span>
                 </div>
             </div>
         </header>
 
-        <!-- Main Content -->
         <main class="flex-grow flex flex-row overflow-hidden">
 
-            <!-- Left Panel: Market Vectors -->
             <aside class="w-1/4 xl:w-1/5 flex-shrink-0 p-4 overflow-y-auto border-r border-gray-800 glass-pane z-10">
                 <h2 class="text-lg font-semibold text-white mb-4">Market & Philosophy Vectors</h2>
                 <div class="space-y-6">
                     <div>
-                        <h3 class="text-sm font-medium text-blue-300 mb-2">Dominant Worldviews</h3>
+                        <h3 class="text-sm font-medium text-blue-300 mb-2">Dominant Investment Philosophies</h3>
                         <div class="space-y-3">
                             <div class="font-mono text-xs">
-                                <div class="flex justify-between"><span>Long-Termism</span><span>42%</span></div>
-                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-green-500 h-1.5 rounded-full" style="width: 42%"></div></div>
+                                <div class="flex justify-between"><span>Disruptive Innovation</span><span>35%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-purple-500 h-1.5 rounded-full" style="width: 35%"></div></div>
                             </div>
                             <div class="font-mono text-xs">
-                                <div class="flex justify-between"><span>Decentralized Gov.</span><span>28%</span></div>
-                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-yellow-500 h-1.5 rounded-full" style="width: 28%"></div></div>
+                                <div class="flex justify-between"><span>Value & Quality</span><span>25%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-green-500 h-1.5 rounded-full" style="width: 25%"></div></div>
                             </div>
                             <div class="font-mono text-xs">
-                                <div class="flex justify-between"><span>Human Augmentation</span><span>19%</span></div>
-                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-purple-500 h-1.5 rounded-full" style="width: 19%"></div></div>
+                                <div class="flex justify-between"><span>Decentralization / Web3</span><span>20%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-yellow-500 h-1.5 rounded-full" style="width: 20%"></div></div>
                             </div>
                              <div class="font-mono text-xs">
-                                <div class="flex justify-between"><span>Climate Tech</span><span>11%</span></div>
-                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-cyan-500 h-1.5 rounded-full" style="width: 11%"></div></div>
+                                <div class="flex justify-between"><span>Global Macro</span><span>12%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-cyan-500 h-1.5 rounded-full" style="width: 12%"></div></div>
+                            </div>
+                             <div class="font-mono text-xs">
+                                <div class="flex justify-between"><span>Diversified Indexing</span><span>8%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-sky-500 h-1.5 rounded-full" style="width: 8%"></div></div>
                             </div>
                         </div>
                     </div>
                      <div>
-                        <h3 class="text-sm font-medium text-blue-300 mb-2">Geopolitical Sentiment</h3>
+                        <h3 class="text-sm font-medium text-blue-300 mb-2">Geopolitical & Market Sentiment</h3>
                          <div class="p-3 bg-black bg-opacity-20 rounded-lg font-mono text-xs text-green-400">
                             <div id="data-stream" class="h-24 relative overflow-hidden">
-                                <!-- Data items will be injected here -->
-                            </div>
+                                </div>
                         </div>
                     </div>
                     <div>
                         <h3 class="text-sm font-medium text-blue-300 mb-2">Monitored Assets</h3>
                          <ul class="font-mono text-xs space-y-2">
                              <li class="flex justify-between items-center">
-                                 <span>SYNTHETICA AI</span><span class="text-green-400">+2.15%</span>
+                                 <span>NVIDIA</span><span class="text-green-400">+3.41%</span>
                              </li>
                              <li class="flex justify-between items-center">
-                                 <span>BIO-GENESIS LABS</span><span class="text-red-400">-0.87%</span>
+                                 <span>APPLE</span><span class="text-green-400">+1.09%</span>
                              </li>
                              <li class="flex justify-between items-center">
-                                 <span>NEURALINK (Private)</span><span class="text-gray-400">N/A</span>
+                                 <span>OPENAI (Private)</span><span class="text-gray-400">VALUATION STABLE</span>
                              </li>
                               <li class="flex justify-between items-center">
-                                 <span>FUSIONCORE ENERGY</span><span class="text-green-400">+5.02%</span>
+                                 <span>SPACEX (Private)</span><span class="text-green-400">NEW LAUNCH</span>
                              </li>
                               <li class="flex justify-between items-center">
-                                 <span>TERRAFORM IND.</span><span class="text-yellow-400">-0.11%</span>
+                                 <span>TESLA</span><span class="text-red-400">-1.58%</span>
+                             </li>
+                              <li class="flex justify-between items-center">
+                                 <span>BITCOIN</span><span class="text-red-400">-2.75%</span>
                              </li>
                          </ul>
                     </div>
                 </div>
             </aside>
 
-            <!-- Center: Knowledge Graph -->
             <section class="flex-grow relative bg-black bg-opacity-20">
                 <div id="knowledge-graph"></div>
                 <div id="graph-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-10">
@@ -151,12 +150,10 @@
                 </div>
             </section>
 
-            <!-- Right Panel: Data Display -->
             <aside id="data-panel-container" class="w-1/3 xl:w-1/4 flex-shrink-0 border-l border-gray-800 z-10 data-panel-hidden">
                 <div id="data-panel" class="h-full p-4 overflow-y-auto glass-pane">
                     <div id="data-panel-content">
-                        <!-- Content will be injected by JS -->
-                    </div>
+                        </div>
                     <div id="data-panel-placeholder" class="h-full flex flex-col items-center justify-center text-center text-gray-500">
                        <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <h3 class="font-semibold text-lg text-gray-400">No Node Selected</h3>
@@ -171,88 +168,213 @@
     <script>
     document.addEventListener('DOMContentLoaded', () => {
 
-        // --- Mock Data ---
-        // This is where you would eventually fetch real data from an API.
-        // For this demo, it's hardcoded.
         const nodes = [
-            // People (Visionaries)
-            { id: 1, label: 'E. Voss', group: 'person', title: 'Eleonora Voss - Philanthropist & Strategist', mass: 15 },
-            { id: 2, label: 'J. Kaito', group: 'person', title: 'Jin Kaito - Tech Mogul', mass: 15 },
-            { id: 3, label: 'Dr. Anya Sharma', group: 'person', title: 'Dr. Anya Sharma - Bioethicist', mass: 15 },
-            
-            // Philosophies
-            { id: 101, label: 'Long-Termism', group: 'philosophy', title: 'Focus on ensuring humanity\'s long-term survival and potential.', mass: 10 },
-            { id: 102, label: 'Decentralized Gov.', group: 'philosophy', title: 'Advocacy for blockchain-based, distributed governance models.', mass: 10 },
-            { id: 103, label: 'Human Augmentation', group: 'philosophy', title: 'The belief in using technology to enhance human cognitive and physical abilities.', mass: 10 },
-            { id: 104, label: 'Climate Tech', group: 'philosophy', title: 'Investment in technology to combat climate change.', mass: 10 },
+            // Visionaries (Investors/Firms)
+            { id: 1, label: 'Berkshire Hathaway', group: 'person', title: 'Warren Buffett - Value Investing', mass: 20 },
+            { id: 2, label: 'ARK Invest', group: 'person', title: 'Cathie Wood - Disruptive Innovation', mass: 18 },
+            { id: 3, label: 'a16z', group: 'person', title: 'Andreessen Horowitz - Venture Capital', mass: 18 },
+            { id: 4, label: 'Sequoia', group: 'person', title: 'Sequoia Capital - Venture Capital', mass: 18 },
+            { id: 5, label: 'Founders Fund', group: 'person', title: 'Peter Thiel - Contrarian Tech', mass: 15 },
+            { id: 6, label: 'Bridgewater', group: 'person', title: 'Ray Dalio - Global Macro', mass: 15 },
+            { id: 7, label: 'BlackRock', group: 'person', title: 'Global Asset Manager', mass: 20 },
+            { id: 8, label: 'Tiger Global', group: 'person', title: 'Growth Equity', mass: 15 },
 
-            // Companies (Investments)
-            { id: 201, label: 'Synthetica AI', group: 'company', title: 'AGI Research & Development', mass: 5 },
-            { id: 202, label: 'Bio-Genesis Labs', group: 'company', title: 'Gene Editing & Longevity Research', mass: 5 },
-            { id: 203, label: 'Veritas Chain', group: 'company', title: 'Decentralized Identity Protocol', mass: 5 },
-            { id: 204, label: 'FusionCore Energy', group: 'company', title: 'Compact Fusion Reactor Development', mass: 5 },
-            { id: 205, label: 'Cerebra-Link', group: 'company', title: 'Brain-Computer Interface Tech', mass: 5 },
+            // Philosophies
+            { id: 101, label: 'Value & Quality', group: 'philosophy', title: 'Invest in great companies at fair prices with a long-term horizon.', mass: 10 },
+            { id: 102, label: 'Disruptive Innovation', group: 'philosophy', title: 'Invest in technologies like AI, robotics, and blockchain that will change the world.', mass: 10 },
+            { id: 103, label: 'Web3 & Decentralization', group: 'philosophy', title: 'Software is eating the world; focus on crypto, decentralization, and the future of the internet.', mass: 10 },
+            { id: 104, label: 'Contrarian & Deep Tech', group: 'philosophy', title: 'Invest in founders solving hard, non-obvious problems that can create new industries.', mass: 10 },
+            { id: 105, label: 'Global Macro', group: 'philosophy', title: 'Systematic, data-driven investment based on global economic trends.', mass: 10 },
+            { id: 106, label: 'Diversified Indexing', group: 'philosophy', title: 'Market-cap weighted exposure to broad markets; belief in market efficiency.', mass: 10 },
+
+            // Companies (Top Tier Investments)
+            { id: 201, label: 'Apple', group: 'company', title: 'Consumer Electronics & Services', mass: 8 },
+            { id: 202, label: 'Microsoft', group: 'company', title: 'Software, Cloud & AI', mass: 8 },
+            { id: 203, label: 'NVIDIA', group: 'company', title: 'AI Hardware & Systems', mass: 8 },
+            { id: 204, label: 'OpenAI', group: 'company', title: 'AI Research & Products (GPT)', mass: 6 },
+            { id: 205, label: 'SpaceX', group: 'company', title: 'Aerospace & Communications', mass: 6 },
+            { id: 206, label: 'Tesla', group: 'company', title: 'EVs, Energy & AI', mass: 7 },
+            { id: 207, label: 'Stripe', group: 'company', title: 'Digital Payments Infrastructure', mass: 6 },
+            { id: 208, label: 'Databricks', group: 'company', title: 'Enterprise AI & Data Platform', mass: 6 },
+            { id: 209, label: 'Coinbase', group: 'company', title: 'Cryptocurrency Exchange', mass: 6 },
+            { id: 210, label: 'Anduril', group: 'company', title: 'Defense Technology', mass: 5 },
+            { id: 211, label: 'Ethereum', group: 'company', title: 'Programmable Blockchain', mass: 7 },
+            { id: 212, label: 'Amazon', group: 'company', title: 'E-commerce & Cloud Computing', mass: 8},
+            { id: 213, label: 'Meta', group: 'company', title: 'Social Media & Metaverse', mass: 7}
         ];
 
         const edges = [
-            // Voss's connections
-            { from: 1, to: 101, label: 'Adheres to', dashes: true, color: { inherit: 'from' } },
-            { from: 1, to: 104, label: 'Advocates', dashes: true, color: { inherit: 'from' } },
-            { from: 1, to: 201, label: 'Major Investor' },
-            { from: 1, to: 204, label: 'Founder' },
+            // Visionary -> Philosophy
+            { from: 1, to: 101, label: 'Adheres to', dashes: true },
+            { from: 2, to: 102, label: 'Adheres to', dashes: true },
+            { from: 3, to: 103, label: 'Adheres to', dashes: true },
+            { from: 4, to: 102, label: 'Adheres to', dashes: true }, 
+            { from: 5, to: 104, label: 'Adheres to', dashes: true },
+            { from: 6, to: 105, label: 'Adheres to', dashes: true },
+            { from: 7, to: 106, label: 'Adheres to', dashes: true },
+            { from: 8, to: 102, label: 'Adheres to', dashes: true },
 
-            // Kaito's connections
-            { from: 2, to: 102, label: 'Adheres to', dashes: true, color: { inherit: 'from' } },
-            { from: 2, to: 103, label: 'Pioneer', dashes: true, color: { inherit: 'from' } },
-            { from: 2, to: 203, label: 'Seed Investor' },
-            { from: 2, to: 205, label: 'Major Investor' },
-            { from: 2, to: 202, label: 'Strategic Partner' },
+            // Berkshire Hathaway Investments
+            { from: 1, to: 201, label: 'Major Holding' },
+            { from: 1, to: 212, label: 'Major Holding' },
+
+            // ARK Invest Investments
+            { from: 2, to: 206, label: 'High Conviction' },
+            { from: 2, to: 209, label: 'High Conviction' },
+            { from: 2, to: 213, label: 'High Conviction' },
+
+            // a16z Investments
+            { from: 3, to: 204, label: 'Investor' },
+            { from: 3, to: 208, label: 'Investor' },
+            { from: 3, to: 209, label: 'Investor' },
+            { from: 3, to: 211, label: 'Proponent' },
+
+            // Sequoia Investments
+            { from: 4, to: 203, label: 'Early Investor' },
+            { from: 4, to: 207, label: 'Investor' },
+            { from: 4, to: 208, label: 'Investor' },
             
-            // Sharma's connections
-            { from: 3, to: 101, label: 'Critiques', dashes: true, color: { inherit: 'from' } },
-            { from: 3, to: 103, label: 'Ethical Advisor', dashes: true, color: { inherit: 'from' } },
-            { from: 3, to: 202, label: 'Ethics Board' },
+            // Founders Fund Investments
+            { from: 5, to: 205, label: 'Early Investor' },
+            { from: 5, to: 210, label: 'Lead Investor' },
+            { from: 5, to: 207, label: 'Early Investor' },
 
-            // Company -> Philosophy connections
-            { from: 201, to: 101, dashes: true, color: { color: '#6b7280' } },
-            { from: 202, to: 103, dashes: true, color: { color: '#6b7280' } },
+            // BlackRock / Diversified Holdings
+            { from: 7, to: 201, label: 'Top Holding' },
+            { from: 7, to: 202, label: 'Top Holding' },
+            { from: 7, to: 203, label: 'Top Holding' },
+
+            // Tiger Global Investments
+            { from: 8, to: 207, label: 'Lead Investor'},
+            { from: 8, to: 208, label: 'Lead Investor'},
+            
+            // Cross-Pollination
+            { from: 3, to: 207, label: 'Investor'},
+
+            // Company -> Philosophy Alignment (Implied)
             { from: 203, to: 102, dashes: true, color: { color: '#6b7280' } },
-            { from: 204, to: 104, dashes: true, color: { color: '#6b7280' } },
-            { from: 205, to: 103, dashes: true, color: { color: '#6b7280' } },
+            { from: 204, to: 102, dashes: true, color: { color: '#6b7280' } },
+            { from: 206, to: 102, dashes: true, color: { color: '#6b7280' } },
+            { from: 209, to: 103, dashes: true, color: { color: '#6b7280' } },
+            { from: 211, to: 103, dashes: true, color: { color: '#6b7280' } },
+            { from: 205, to: 104, dashes: true, color: { color: '#6b7280' } },
+            { from: 210, to: 104, dashes: true, color: { color: '#6b7280' } },
+            { from: 201, to: 101, dashes: true, color: { color: '#6b7280' } },
+
         ];
         
-        // Mock data for side panel details
         const nodeDetails = {
             1: {
-                name: 'Eleonora Voss',
-                type: 'Visionary',
-                description: 'A reclusive multi-billionaire industrialist turned philosopher, Voss has redirected her family\'s generational wealth towards solving what she calls "existential anchors" - technologies vital for long-term human survival.',
-                connections: 4,
-                primary_philosophy: 'Long-Termism',
-                assets: ['FusionCore Energy', 'Synthetica AI']
+                name: 'Berkshire Hathaway',
+                type: 'Conglomerate / Value Investor',
+                description: 'Led by Warren Buffett, Berkshire Hathaway is a multinational conglomerate that wholly owns and holds major stakes in a diverse range of companies. Its investment philosophy is rooted in deep value, seeking out high-quality, durable companies ("moats") at fair prices.',
+                primary_philosophy: 'Value & Quality',
+                major_holdings: 'Apple, Bank of America, American Express, Coca-Cola, Chevron'
             },
             2: {
-                name: 'Jin Kaito',
-                type: 'Technologist',
-                description: 'A serial entrepreneur who made his fortune in early cryptocurrency adoption. Kaito is now the leading voice for radical technological freedom, funding ventures in decentralization and direct human-machine integration.',
-                connections: 5,
-                primary_philosophy: 'Decentralized Governance',
-                assets: ['Veritas Chain', 'Cerebra-Link', 'Bio-Genesis Labs']
+                name: 'ARK Invest',
+                type: 'Asset Manager / Growth Investor',
+                description: 'Founded by Cathie Wood, ARK Invest focuses exclusively on disruptive innovation. Their actively managed ETFs target technologies like artificial intelligence, DNA sequencing, robotics, energy storage, and blockchain technology.',
+                primary_philosophy: 'Disruptive Innovation',
+                major_holdings: 'Tesla, Coinbase, Roku, Block Inc., Zoom'
             },
-            101: {
-                name: 'Long-Termism',
-                type: 'Philosophy',
-                description: 'An ethical stance that prioritizes improving the long-term future. Adherents focus on mitigating existential risks and steering civilization towards a flourishing, multi-planetary future.',
-                proponents: ['E. Voss'],
-                critics: ['Dr. Anya Sharma'],
-                linked_tech: ['AGI Safety', 'Fusion Energy']
+            3: {
+                name: 'Andreessen Horowitz (a16z)',
+                type: 'Venture Capital',
+                description: 'A prominent Silicon Valley venture capital firm that invests from seed to late-stage. Known for its thesis-driven approach, particularly "Software is Eating the World," and its major push into Web3 and crypto technologies.',
+                primary_philosophy: 'Web3 & Decentralization',
+                notable_investments: 'OpenAI, Databricks, Stripe, Coinbase, Roblox'
+            },
+            4: {
+                name: 'Sequoia Capital',
+                type: 'Venture Capital',
+                description: 'One of the most legendary venture capital firms, Sequoia has a track record of backing iconic technology companies from their earliest stages. They focus on all sectors, with a strong emphasis on enterprise software, AI, and fintech.',
+                primary_philosophy: 'Disruptive Innovation',
+                notable_investments: 'NVIDIA, Stripe, Databricks, Snowflake, DoorDash'
+            },
+            5: {
+                name: 'Founders Fund',
+                type: 'Venture Capital',
+                description: 'A contrarian venture capital firm led by Peter Thiel. Founders Fund invests in companies tackling massive, difficult problems in "atoms" as well as "bits," backing ambitious deep technology in areas like aerospace, AI, and national security.',
+                primary_philosophy: 'Contrarian & Deep Tech',
+                notable_investments: 'SpaceX, Anduril, Stripe, Palantir'
             },
             201: {
-                name: 'Synthetica AI',
-                type: 'Company',
-                description: 'A leading research firm focused on achieving Artificial General Intelligence (AGI). Heavily funded by Voss, their research is guided by a strict ethical framework to ensure alignment with human values.',
-                valuation: '$85B (projected)',
-                key_personnel: ['E. Voss (Investor)']
+                name: 'Apple Inc.',
+                type: 'Company / Consumer Technology',
+                description: 'Designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. Its ecosystem of hardware, software (iOS), and services is a core holding for value and quality investors.',
+                valuation: '~$3 Trillion (Market Cap)',
+                sector: 'Technology',
+                key_investors: 'Berkshire Hathaway, BlackRock, Vanguard'
+            },
+            203: {
+                name: 'NVIDIA Corporation',
+                type: 'Company / AI Hardware',
+                description: 'The dominant provider of graphics processing units (GPUs) which are the essential hardware backbone for training and running artificial intelligence models. Their central role in the AI revolution has driven massive growth.',
+                valuation: '~$3 Trillion (Market Cap)',
+                sector: 'Artificial Intelligence',
+                key_investors: 'Sequoia, BlackRock, Vanguard'
+            },
+            204: {
+                name: 'OpenAI',
+                type: 'Company / AI Research',
+                description: 'An AI research and deployment company. Its mission is to ensure that artificial general intelligence (AGI) benefits all of humanity. Creator of the groundbreaking GPT series of models and DALL-E.',
+                valuation: '$80-90 Billion',
+                sector: 'Artificial Intelligence',
+                key_investors: 'Microsoft, a16z, Sequoia'
+            },
+            205: {
+                name: 'SpaceX',
+                type: 'Company / Aerospace',
+                description: 'Designs, manufactures, and launches advanced rockets and spacecraft. The company was founded by Elon Musk to revolutionize space technology, with the ultimate goal of enabling people to live on other planets.',
+                valuation: '~$180 Billion',
+                sector: 'Aerospace & Defense',
+                key_investors: 'Founders Fund, Google, Fidelity'
+            },
+            207: {
+                name: 'Stripe',
+                type: 'Company / Fintech',
+                description: 'Builds economic infrastructure for the internet. Businesses of all sizes use its software to accept payments and manage their businesses online. A key player in the digital economy.',
+                valuation: '$65 Billion',
+                sector: 'Fintech',
+                key_investors: 'a16z, Sequoia, Founders Fund, Tiger Global'
+            },
+            208: {
+                name: 'Databricks',
+                type: 'Company / Enterprise AI',
+                description: 'A data and AI company that provides a unified "Data Lakehouse" platform for data engineering, data science, machine learning, and analytics. A critical tool for large enterprises deploying AI.',
+                valuation: '$43 Billion',
+                sector: 'Artificial Intelligence',
+                key_investors: 'a16z, Tiger Global, Morgan Stanley'
+            },
+            210: {
+                name: 'Anduril Industries',
+                type: 'Company / Defense Tech',
+                description: 'A defense technology company that builds AI-powered hardware and software to solve complex national security challenges. Focuses on autonomous systems, drones, and command & control platforms.',
+                valuation: '$8.5 Billion',
+                sector: 'Aerospace & Defense',
+                key_investors: 'Founders Fund, a16z'
+            },
+             101: {
+                name: 'Value & Quality Investing',
+                type: 'Philosophy',
+                description: 'An investment paradigm that involves buying securities that appear underpriced by some form of fundamental analysis. Proponents seek high-quality businesses with durable competitive advantages (a "moat") and aim to hold them for the long term.',
+                proponents: 'Berkshire Hathaway, many traditional funds',
+                linked_assets: 'Apple, Amazon, Coca-Cola'
+            },
+             102: {
+                name: 'Disruptive Innovation',
+                type: 'Philosophy',
+                description: 'A strategy focused on identifying and investing in companies that are creating new markets or disrupting existing ones with technological advancements. This approach carries higher risk but aims for exponential growth.',
+                proponents: 'ARK Invest, Sequoia, Tiger Global',
+                linked_tech: 'AI, Genomics, Robotics, EV'
+            },
+             103: {
+                name: 'Web3 & Decentralization',
+                type: 'Philosophy',
+                description: 'An investment thesis centered on the belief that blockchain technology and decentralization will form the architecture of the next era of the internet. It covers everything from cryptocurrencies to DAOs and decentralized applications.',
+                proponents: 'a16z, Paradigm, Union Square Ventures',
+                linked_assets: 'Ethereum, Bitcoin, Coinbase, DeFi Protocols'
             }
         };
 
@@ -272,28 +394,28 @@
                 borderWidth: 2,
             },
             edges: {
-                width: 1,
+                width: 1.5,
                 color: {
                     color: '#4b5563',
                     highlight: '#3b82f6',
                 },
                 arrows: {
-                    to: { enabled: true, scaleFactor: 0.5 }
+                    to: { enabled: true, scaleFactor: 0.6 }
                 },
                 font: {
                     color: '#9ca3af',
                     size: 10,
-                    align: 'middle'
+                    align: 'top'
                 },
             },
             physics: {
                 solver: 'forceAtlas2Based',
                 forceAtlas2Based: {
-                    gravitationalConstant: -50,
+                    gravitationalConstant: -100,
                     centralGravity: 0.01,
-                    springLength: 200,
-                    springConstant: 0.08,
-                    avoidOverlap: 0.5
+                    springLength: 250,
+                    springConstant: 0.09,
+                    avoidOverlap: 0.7
                 },
                 minVelocity: 0.75,
                 stabilization: { iterations: 150 }
@@ -305,7 +427,7 @@
             groups: {
                 person: { color: { background: '#ec4899', border: '#f9a8d4' }, size: 25 },
                 philosophy: { color: { background: '#8b5cf6', border: '#c4b5fd' }, shape: 'square', size: 20 },
-                company: { color: { background: '#10b981', border: '#6ee7b7' }, shape: 'triangle', size: 15 },
+                company: { color: { background: '#10b981', border: '#6ee7b7' }, shape: 'dot', size: 15 },
             }
         };
 
@@ -314,7 +436,7 @@
         network.on('stabilizationDidStraighten', () => {
             setTimeout(() => {
                 loader.style.opacity = '0';
-                loader.style.display = 'none';
+                setTimeout(() => { loader.style.display = 'none'; }, 500);
             }, 500);
         });
 
@@ -346,9 +468,9 @@
             
             for(const [key, value] of Object.entries(details)) {
                 if (['name', 'type', 'description'].includes(key)) continue;
-                let displayKey = key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                let displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
                 let displayValue = Array.isArray(value) ? value.join(', ') : value;
-                html += `<li class="flex justify-between"><span>${displayKey}</span><span class="text-white text-right">${displayValue}</span></li>`;
+                html += `<li class="flex justify-between"><span class="flex-shrink-0 mr-4">${displayKey}</span><span class="text-white text-right break-all">${displayValue}</span></li>`;
             }
 
             html += `</ul></div>`;
@@ -360,6 +482,7 @@
         }
 
         function hideNodeDetails() {
+            // dataPanelContainer.classList.add('data-panel-hidden'); // This hides it instantly
             dataPanelPlaceholder.style.display = 'flex';
             dataPanelContent.style.display = 'none';
         }
@@ -367,21 +490,24 @@
         // --- Geopolitical Sentiment Streamer ---
         const streamContainer = document.getElementById('data-stream');
         const streamItems = [
-            "VECTOR SHIFT: Positive sentiment on Sino-US AI accord.",
-            "ALERT: Increased volatility in rare earth metals market.",
-            "TREND: Capital outflow from traditional energy to fusion tech.",
-            "ANALYSIS: Voss Foundation doubles down on climate initiatives.",
-            "SIGNAL: Kaito-backed DAO passes first autonomous governance vote."
+            "VECTOR SHIFT: Positive sentiment on Sino-US AI safety talks.",
+            "ALERT: Chip export restrictions impacting supply chains.",
+            "TREND: Sovereign wealth funds increasing allocation to private deep tech.",
+            "ANALYSIS: a16z report indicates cooling in consumer crypto, heating in infra.",
+            "SIGNAL: Anduril secures major new autonomous systems contract.",
+            "MARKET: Increased volatility in SaaS multiples amid rate uncertainty.",
+            "POLICY: EU AI Act implementation timeline causing sector jitters."
         ];
         let currentStreamItem = 0;
 
         function updateStream() {
+            if(!streamContainer) return;
             const item = streamItems[currentStreamItem];
             streamContainer.innerHTML = `<div class="data-stream-item absolute inset-0 p-2">${item}<span class="inline-block border-r-2 border-green-400 h-3 w-0 ml-1 blinking-cursor"></span></div>`;
             currentStreamItem = (currentStreamItem + 1) % streamItems.length;
         }
 
-        setInterval(updateStream, 10000);
+        setInterval(updateStream, 8000);
         updateStream();
     });
     </script>
