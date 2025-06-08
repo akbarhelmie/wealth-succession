@@ -79,7 +79,7 @@
                 </div>
 
                 <div>
-                    <h2 class="text-lg font-semibold text-white mb-3">Live Activity Feed</h2>
+                    <h2 class="text-lg font-semibold text-white mb-3">Activity Feed (Simulation)</h2>
                     <div id="sentiment-panel" class="bg-gray-900 p-3 rounded-lg min-h-[80px]">
                         <p class="text-sm font-mono text-gray-400">Select or search an asset to see live data.</p>
                     </div>
@@ -260,7 +260,6 @@ const allEdges = [];
 Object.entries(assetData).forEach(([sourceId, data]) => {
     if (data.relations) {
         Object.entries(data.relations).forEach(([relationType, targetIds]) => {
-            // Ensure targetIds is an array
             const targets = Array.isArray(targetIds) ? targetIds : [targetIds];
             targets.forEach(targetId => {
                 if (assetData[targetId]) {
@@ -275,14 +274,18 @@ Object.entries(assetData).forEach(([sourceId, data]) => {
 let nodes = new vis.DataSet(allNodes);
 let edges = new vis.DataSet(allEdges);
 
-// Determine primary nodes for initial view
-const primaryNodeIds = Object.keys(assetData).filter(id => 
-    ['stock', 'crypto', 'commodity', 'bond', 'etf', 'philosophy', 'geopolitics', 'macro'].includes(assetData[id].group) && !id.startsWith('gen_')
-);
+// --- FIX: Determine primary nodes AND their inter-connections for the initial view ---
+const primaryNodeIds = new Set(Object.keys(assetData).filter(id => 
+    ['stock', 'crypto', 'commodity', 'bond', 'etf', 'philosophy', 'geopolitics', 'macro', 'person'].includes(assetData[id].group) && !id.startsWith('gen_')
+));
+
+const primaryEdges = edges.get({
+    filter: edge => primaryNodeIds.has(edge.from) && primaryNodeIds.has(edge.to)
+});
 
 // We need a separate dataset for the view so we can filter it
-let displayedNodes = new vis.DataSet(nodes.get({ filter: item => primaryNodeIds.includes(item.id) }));
-let displayedEdges = new vis.DataSet(); // Start with no edges in default view
+let displayedNodes = new vis.DataSet(nodes.get({ filter: item => primaryNodeIds.has(item.id) }));
+let displayedEdges = new vis.DataSet(primaryEdges); // <-- FIX: Start with primary edges
 
 let network = new vis.Network(container, { nodes: displayedNodes, edges: displayedEdges }, {
     nodes: {
@@ -402,10 +405,11 @@ function resetToDefaultState(clearSearch = true) {
     sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">Select or search an asset.</p>`;
     infoPanel.classList.add('hidden');
     
-    // Show only primary nodes and no edges
     displayedNodes.clear();
-    displayedNodes.add(nodes.get({ filter: item => primaryNodeIds.includes(item.id) }));
+    displayedNodes.add(nodes.get({ filter: item => primaryNodeIds.has(item.id) }));
+    
     displayedEdges.clear();
+    displayedEdges.add(primaryEdges);
 
     if (clearSearch) searchBar.value = '';
     network.fit({ animation: { duration: 1000, easingFunction: 'easeInOutQuad' }});
