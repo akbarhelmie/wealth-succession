@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Succession Atlas | Global Strategy Dashboard</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter & Roboto Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- vis.js for Network Graph -->
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050810;
+            color: #d1d5db;
+            overflow: hidden; /* Prevent scrolling of the whole page */
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
+        }
+        .glass-pane {
+            background-color: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-border {
+            box-shadow: 0 0 2px rgba(59, 130, 246, 0.5), 0 0 5px rgba(59, 130, 246, 0.3);
+        }
+        #knowledge-graph {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .data-panel {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .data-panel-hidden {
+            display: none;
+        }
+        .blinking-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #3b82f6; }
+        }
+        .data-stream-item {
+            animation: fadeInAndScroll 10s linear infinite;
+        }
+        @keyframes fadeInAndScroll {
+            0% { opacity: 0; transform: translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex h-screen w-screen flex-col">
+        <!-- Header -->
+        <header class="flex-shrink-0 glass-pane z-20 border-b border-gray-800">
+            <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-7 h-7 text-blue-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7V17L12 22L22 17V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 7L12 12L22 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 22V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <h1 class="text-xl font-bold text-white">Succession Atlas | Global Strategy Dashboard</h1>
+                </div>
+                <div class="font-mono text-sm text-blue-300">
+                    STATUS: <span class="text-green-400 font-semibold">LIVE</span> // CLASSIFICATION: <span class="text-yellow-400">ALPHA</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow flex flex-row overflow-hidden">
+
+            <!-- Left Panel: Market Vectors -->
+            <aside class="w-1/4 xl:w-1/5 flex-shrink-0 p-4 overflow-y-auto border-r border-gray-800 glass-pane z-10">
+                <h2 class="text-lg font-semibold text-white mb-4">Market & Philosophy Vectors</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-sm font-medium text-blue-300 mb-2">Dominant Worldviews</h3>
+                        <div class="space-y-3">
+                            <div class="font-mono text-xs">
+                                <div class="flex justify-between"><span>Long-Termism</span><span>42%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-green-500 h-1.5 rounded-full" style="width: 42%"></div></div>
+                            </div>
+                            <div class="font-mono text-xs">
+                                <div class="flex justify-between"><span>Decentralized Gov.</span><span>28%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-yellow-500 h-1.5 rounded-full" style="width: 28%"></div></div>
+                            </div>
+                            <div class="font-mono text-xs">
+                                <div class="flex justify-between"><span>Human Augmentation</span><span>19%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-purple-500 h-1.5 rounded-full" style="width: 19%"></div></div>
+                            </div>
+                             <div class="font-mono text-xs">
+                                <div class="flex justify-between"><span>Climate Tech</span><span>11%</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-1.5"><div class="bg-cyan-500 h-1.5 rounded-full" style="width: 11%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="text-sm font-medium text-blue-300 mb-2">Geopolitical Sentiment</h3>
+                         <div class="p-3 bg-black bg-opacity-20 rounded-lg font-mono text-xs text-green-400">
+                            <div id="data-stream" class="h-24 relative overflow-hidden">
+                                <!-- Data items will be injected here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-blue-300 mb-2">Monitored Assets</h3>
+                         <ul class="font-mono text-xs space-y-2">
+                             <li class="flex justify-between items-center">
+                                 <span>SYNTHETICA AI</span><span class="text-green-400">+2.15%</span>
+                             </li>
+                             <li class="flex justify-between items-center">
+                                 <span>BIO-GENESIS LABS</span><span class="text-red-400">-0.87%</span>
+                             </li>
+                             <li class="flex justify-between items-center">
+                                 <span>NEURALINK (Private)</span><span class="text-gray-400">N/A</span>
+                             </li>
+                              <li class="flex justify-between items-center">
+                                 <span>FUSIONCORE ENERGY</span><span class="text-green-400">+5.02%</span>
+                             </li>
+                              <li class="flex justify-between items-center">
+                                 <span>TERRAFORM IND.</span><span class="text-yellow-400">-0.11%</span>
+                             </li>
+                         </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center: Knowledge Graph -->
+            <section class="flex-grow relative bg-black bg-opacity-20">
+                <div id="knowledge-graph"></div>
+                <div id="graph-loader" class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 z-10">
+                    <p class="text-blue-300 font-mono">Initializing Knowledge Graph...</p>
+                    <p class="text-gray-400 font-mono text-sm">Mapping nodes and vectors...</p>
+                </div>
+            </section>
+
+            <!-- Right Panel: Data Display -->
+            <aside id="data-panel-container" class="w-1/3 xl:w-1/4 flex-shrink-0 border-l border-gray-800 z-10 data-panel-hidden">
+                <div id="data-panel" class="h-full p-4 overflow-y-auto glass-pane">
+                    <div id="data-panel-content">
+                        <!-- Content will be injected by JS -->
+                    </div>
+                    <div id="data-panel-placeholder" class="h-full flex flex-col items-center justify-center text-center text-gray-500">
+                       <svg class="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h3 class="font-semibold text-lg text-gray-400">No Node Selected</h3>
+                        <p class="font-mono text-xs mt-2">Click a node in the graph to view its strategic profile and connections.</p>
+                    </div>
+                </div>
+            </aside>
+
+        </main>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Mock Data ---
+        // This is where you would eventually fetch real data from an API.
+        // For this demo, it's hardcoded.
+        const nodes = [
+            // People (Visionaries)
+            { id: 1, label: 'E. Voss', group: 'person', title: 'Eleonora Voss - Philanthropist & Strategist', mass: 15 },
+            { id: 2, label: 'J. Kaito', group: 'person', title: 'Jin Kaito - Tech Mogul', mass: 15 },
+            { id: 3, label: 'Dr. Anya Sharma', group: 'person', title: 'Dr. Anya Sharma - Bioethicist', mass: 15 },
+            
+            // Philosophies
+            { id: 101, label: 'Long-Termism', group: 'philosophy', title: 'Focus on ensuring humanity\'s long-term survival and potential.', mass: 10 },
+            { id: 102, label: 'Decentralized Gov.', group: 'philosophy', title: 'Advocacy for blockchain-based, distributed governance models.', mass: 10 },
+            { id: 103, label: 'Human Augmentation', group: 'philosophy', title: 'The belief in using technology to enhance human cognitive and physical abilities.', mass: 10 },
+            { id: 104, label: 'Climate Tech', group: 'philosophy', title: 'Investment in technology to combat climate change.', mass: 10 },
+
+            // Companies (Investments)
+            { id: 201, label: 'Synthetica AI', group: 'company', title: 'AGI Research & Development', mass: 5 },
+            { id: 202, label: 'Bio-Genesis Labs', group: 'company', title: 'Gene Editing & Longevity Research', mass: 5 },
+            { id: 203, label: 'Veritas Chain', group: 'company', title: 'Decentralized Identity Protocol', mass: 5 },
+            { id: 204, label: 'FusionCore Energy', group: 'company', title: 'Compact Fusion Reactor Development', mass: 5 },
+            { id: 205, label: 'Cerebra-Link', group: 'company', title: 'Brain-Computer Interface Tech', mass: 5 },
+        ];
+
+        const edges = [
+            // Voss's connections
+            { from: 1, to: 101, label: 'Adheres to', dashes: true, color: { inherit: 'from' } },
+            { from: 1, to: 104, label: 'Advocates', dashes: true, color: { inherit: 'from' } },
+            { from: 1, to: 201, label: 'Major Investor' },
+            { from: 1, to: 204, label: 'Founder' },
+
+            // Kaito's connections
+            { from: 2, to: 102, label: 'Adheres to', dashes: true, color: { inherit: 'from' } },
+            { from: 2, to: 103, label: 'Pioneer', dashes: true, color: { inherit: 'from' } },
+            { from: 2, to: 203, label: 'Seed Investor' },
+            { from: 2, to: 205, label: 'Major Investor' },
+            { from: 2, to: 202, label: 'Strategic Partner' },
+            
+            // Sharma's connections
+            { from: 3, to: 101, label: 'Critiques', dashes: true, color: { inherit: 'from' } },
+            { from: 3, to: 103, label: 'Ethical Advisor', dashes: true, color: { inherit: 'from' } },
+            { from: 3, to: 202, label: 'Ethics Board' },
+
+            // Company -> Philosophy connections
+            { from: 201, to: 101, dashes: true, color: { color: '#6b7280' } },
+            { from: 202, to: 103, dashes: true, color: { color: '#6b7280' } },
+            { from: 203, to: 102, dashes: true, color: { color: '#6b7280' } },
+            { from: 204, to: 104, dashes: true, color: { color: '#6b7280' } },
+            { from: 205, to: 103, dashes: true, color: { color: '#6b7280' } },
+        ];
+        
+        // Mock data for side panel details
+        const nodeDetails = {
+            1: {
+                name: 'Eleonora Voss',
+                type: 'Visionary',
+                description: 'A reclusive multi-billionaire industrialist turned philosopher, Voss has redirected her family\'s generational wealth towards solving what she calls "existential anchors" - technologies vital for long-term human survival.',
+                connections: 4,
+                primary_philosophy: 'Long-Termism',
+                assets: ['FusionCore Energy', 'Synthetica AI']
+            },
+            2: {
+                name: 'Jin Kaito',
+                type: 'Technologist',
+                description: 'A serial entrepreneur who made his fortune in early cryptocurrency adoption. Kaito is now the leading voice for radical technological freedom, funding ventures in decentralization and direct human-machine integration.',
+                connections: 5,
+                primary_philosophy: 'Decentralized Governance',
+                assets: ['Veritas Chain', 'Cerebra-Link', 'Bio-Genesis Labs']
+            },
+            101: {
+                name: 'Long-Termism',
+                type: 'Philosophy',
+                description: 'An ethical stance that prioritizes improving the long-term future. Adherents focus on mitigating existential risks and steering civilization towards a flourishing, multi-planetary future.',
+                proponents: ['E. Voss'],
+                critics: ['Dr. Anya Sharma'],
+                linked_tech: ['AGI Safety', 'Fusion Energy']
+            },
+            201: {
+                name: 'Synthetica AI',
+                type: 'Company',
+                description: 'A leading research firm focused on achieving Artificial General Intelligence (AGI). Heavily funded by Voss, their research is guided by a strict ethical framework to ensure alignment with human values.',
+                valuation: '$85B (projected)',
+                key_personnel: ['E. Voss (Investor)']
+            }
+        };
+
+        // --- DOM Elements ---
+        const container = document.getElementById('knowledge-graph');
+        const loader = document.getElementById('graph-loader');
+        const dataPanelContainer = document.getElementById('data-panel-container');
+        const dataPanelContent = document.getElementById('data-panel-content');
+        const dataPanelPlaceholder = document.getElementById('data-panel-placeholder');
+        
+        // --- Knowledge Graph Initialization ---
+        const data = { nodes, edges };
+        const options = {
+            nodes: {
+                shape: 'dot',
+                font: { color: '#ffffff', size: 14, face: 'Inter' },
+                borderWidth: 2,
+            },
+            edges: {
+                width: 1,
+                color: {
+                    color: '#4b5563',
+                    highlight: '#3b82f6',
+                },
+                arrows: {
+                    to: { enabled: true, scaleFactor: 0.5 }
+                },
+                font: {
+                    color: '#9ca3af',
+                    size: 10,
+                    align: 'middle'
+                },
+            },
+            physics: {
+                solver: 'forceAtlas2Based',
+                forceAtlas2Based: {
+                    gravitationalConstant: -50,
+                    centralGravity: 0.01,
+                    springLength: 200,
+                    springConstant: 0.08,
+                    avoidOverlap: 0.5
+                },
+                minVelocity: 0.75,
+                stabilization: { iterations: 150 }
+            },
+            interaction: {
+                hover: true,
+                tooltipDelay: 200,
+            },
+            groups: {
+                person: { color: { background: '#ec4899', border: '#f9a8d4' }, size: 25 },
+                philosophy: { color: { background: '#8b5cf6', border: '#c4b5fd' }, shape: 'square', size: 20 },
+                company: { color: { background: '#10b981', border: '#6ee7b7' }, shape: 'triangle', size: 15 },
+            }
+        };
+
+        const network = new vis.Network(container, data, options);
+
+        network.on('stabilizationDidStraighten', () => {
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.display = 'none';
+            }, 500);
+        });
+
+        // --- Interactivity ---
+        network.on('click', (params) => {
+            if (params.nodes.length > 0) {
+                const nodeId = params.nodes[0];
+                displayNodeDetails(nodeId);
+            } else {
+                hideNodeDetails();
+            }
+        });
+
+        function displayNodeDetails(nodeId) {
+            const details = nodeDetails[nodeId];
+            if (!details) { 
+                hideNodeDetails();
+                return;
+            }
+
+            let html = `
+                <h3 class="text-2xl font-bold text-white mb-1">${details.name}</h3>
+                <p class="text-sm font-mono text-blue-300 mb-6">${details.type}</p>
+                <p class="text-gray-300 mb-6">${details.description}</p>
+                <div class="border-t border-gray-700 pt-4">
+                    <h4 class="text-sm font-medium text-blue-300 mb-3">Profile Data</h4>
+                    <ul class="font-mono text-xs space-y-2 text-gray-400">
+            `;
+            
+            for(const [key, value] of Object.entries(details)) {
+                if (['name', 'type', 'description'].includes(key)) continue;
+                let displayKey = key.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+                let displayValue = Array.isArray(value) ? value.join(', ') : value;
+                html += `<li class="flex justify-between"><span>${displayKey}</span><span class="text-white text-right">${displayValue}</span></li>`;
+            }
+
+            html += `</ul></div>`;
+            
+            dataPanelContent.innerHTML = html;
+            dataPanelPlaceholder.style.display = 'none';
+            dataPanelContent.style.display = 'block';
+            dataPanelContainer.classList.remove('data-panel-hidden');
+        }
+
+        function hideNodeDetails() {
+            dataPanelPlaceholder.style.display = 'flex';
+            dataPanelContent.style.display = 'none';
+        }
+
+        // --- Geopolitical Sentiment Streamer ---
+        const streamContainer = document.getElementById('data-stream');
+        const streamItems = [
+            "VECTOR SHIFT: Positive sentiment on Sino-US AI accord.",
+            "ALERT: Increased volatility in rare earth metals market.",
+            "TREND: Capital outflow from traditional energy to fusion tech.",
+            "ANALYSIS: Voss Foundation doubles down on climate initiatives.",
+            "SIGNAL: Kaito-backed DAO passes first autonomous governance vote."
+        ];
+        let currentStreamItem = 0;
+
+        function updateStream() {
+            const item = streamItems[currentStreamItem];
+            streamContainer.innerHTML = `<div class="data-stream-item absolute inset-0 p-2">${item}<span class="inline-block border-r-2 border-green-400 h-3 w-0 ml-1 blinking-cursor"></span></div>`;
+            currentStreamItem = (currentStreamItem + 1) % streamItems.length;
+        }
+
+        setInterval(updateStream, 10000);
+        updateStream();
+    });
+    </script>
+</body>
+</html>
