@@ -17,25 +17,24 @@
         #graph-container {
             background: radial-gradient(circle at center, #111827, #030712);
         }
-       .panel {
+      .panel {
             background-color: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-       .progress-bar-bg { background-color: #374151; }
+      .progress-bar-bg { background-color: #374151; }
         #search-bar {
             background-color: #1f2937;
             border: 1px solid #4b5563;
         }
-       .info-list-item { border-bottom: 1px solid #374151; }
-       .info-list-item:last-child { border-bottom: none; }
-        /* Animation for sentiment update */
-       .flash-update {
+      .info-list-item { border-bottom: 1px solid #374151; }
+      .info-list-item:last-child { border-bottom: none; }
+      .flash-update {
             animation: flash 0.8s ease-in-out;
         }
         @keyframes flash {
-            0% { background-color: #1f2937; } /* Corresponds to bg-gray-900 */
-            50% { background-color: #374151; } /* A slightly lighter gray for the flash */
+            0% { background-color: #1f2937; }
+            50% { background-color: #374151; }
             100% { background-color: #1f2937; }
         }
     </style>
@@ -51,7 +50,6 @@
                 <div id="default-panel-view">
                      <h2 class="text-lg font-semibold text-white mb-3">Dominant Market Philosophies</h2>
                      <div class="space-y-3">
-                         {/* Static progress bars */}
                          <div><div class="flex justify-between text-sm mb-1"><span>Disruptive Innovation</span><span>35%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-purple-500 h-2 rounded-full" style="width: 35%"></div></div></div>
                          <div><div class="flex justify-between text-sm mb-1"><span>Value & Quality</span><span>25%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-green-500 h-2 rounded-full" style="width: 25%"></div></div></div>
                          <div><div class="flex justify-between text-sm mb-1"><span>Decentralization</span><span>20%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="bg-yellow-500 h-2 rounded-full" style="width: 20%"></div></div></div>
@@ -59,7 +57,6 @@
                     </div>
                 </div>
 
-                {/* Dynamic Content (hidden by default) */}
                 <div id="asset-specific-view" class="hidden">
                     <h2 id="vector-title" class="text-lg font-semibold text-white mb-3"></h2>
                     <div id="philosophy-vectors" class="space-y-3"></div>
@@ -74,7 +71,6 @@
             </div>
         </div>
 
-        {/* Right Info Panel */}
         <div id="info-panel" class="absolute top-4 right-4 z-10 w-96 p-5 rounded-xl panel hidden max-h-[calc(100vh-2rem)] overflow-y-auto">
             <h2 id="info-title" class="text-xl font-bold text-blue-300 mb-2"></h2>
             <div class="flex items-center gap-2 mb-4">
@@ -84,12 +80,10 @@
             <div id="info-details" class="space-y-4"></div>
         </div>
 
-        {/* Graph Container */}
         <div id="graph-container" class="w-full h-full"></div>
     </div>
 
     <script type="text/javascript">
-        // --- DATA STORE & GENERATION ---
         let liveSentimentInterval = null;
 
         const assetData = {
@@ -107,7 +101,7 @@
                 vectors: { 'AI Dominance': 50, 'Disruptive Growth': 30, 'Geopolitical Chip Race': 20 },
                 sentiments:,
                 relations: {
-                    people: [{ id: 'jensen', label: 'Jensen Huang', role: 'CEO & Founder', philosophy: 'Accelerated computing will reshape every industry.' }],
+                    people:,
                     companies:
                 }
             },
@@ -163,21 +157,20 @@
                 mockData[id] = {
                     label: label,
                     group: group,
-                    value: 8 + Math.random() * 12, // Smaller value for mock assets
-                    marketCap: `$${(Math.random() * 200 + 10).toFixed(0)}B`, // Smaller MCap
+                    value: 8 + Math.random() * 12, 
+                    marketCap: `$${(Math.random() * 200 + 10).toFixed(0)}B`,
                     vectors: {'Diversified Indexing': 50 + Math.floor(Math.random()*20), 'Sector Focus': 20 + Math.floor(Math.random()*10), 'Risk Managed': 10 + Math.floor(Math.random()*10)},
-                    sentiments:],
-                    relations: { people:, companies: }
-                }
+                    sentiments:], // Cycle through generic sentiments
+                    relations: { people:, companies: } // Mock assets have no detailed relations for performance
+                };
             }
             return mockData;
         }
 
-        const mockAssets = generateMockData(994); // Total assets = 6 primary + 994 mock = 1000
+        const mockAssets = generateMockData(994); 
         Object.assign(assetData, mockAssets);
         const primaryAssetIds = ['bitcoin', 'nvidia', 'gold', 'ethereum', 'us_treasury_10y', 'sp500_etf'];
 
-        // --- DOM ELEMENTS ---
         const container = document.getElementById('graph-container');
         const searchBar = document.getElementById('search-bar');
         const defaultPanelView = document.getElementById('default-panel-view');
@@ -191,10 +184,9 @@
         const infoMarketCap = document.getElementById('info-marketcap');
         const infoDetails = document.getElementById('info-details');
 
-        // --- INITIALIZE GRAPH ---
         let allNodesDataSet = new vis.DataSet(Object.keys(assetData).map(id => ({ id, label: assetData[id].label, group: assetData[id].group, value: assetData[id].value })));
         let primaryNodesDataSet = new vis.DataSet(allNodesDataSet.get({ filter: item => primaryAssetIds.includes(item.id) }));
-        let currentDisplayedNodes = new vis.DataSet(primaryNodesDataSet.get()); // Initially show primary nodes
+        let currentDisplayedNodes = new vis.DataSet(primaryNodesDataSet.get()); 
         let edges = new vis.DataSet();
         
         let network = new vis.Network(container, { nodes: currentDisplayedNodes, edges }, {
@@ -217,7 +209,6 @@
             }
         });
 
-        // --- FUNCTIONS ---
         function updatePanels(assetId) {
             const data = assetData[assetId];
             if (!data) return;
@@ -225,7 +216,7 @@
             vectorTitle.innerText = `${data.label} Vectors`;
             philosophyVectors.innerHTML = '';
             Object.entries(data.vectors).forEach(([name, value]) => {
-                const colors = { 'Decentralization': 'bg-yellow-500', 'AI Dominance': 'bg-purple-500', 'Safe Haven': 'bg-green-500' };
+                const colors = { 'Decentralization': 'bg-yellow-500', 'AI Dominance': 'bg-purple-500', 'Safe Haven': 'bg-green-500', 'Digital Gold': 'bg-yellow-600', 'Inflation Hedge': 'bg-orange-500', 'Disruptive Growth': 'bg-pink-500', 'Geopolitical Chip Race': 'bg-red-500', 'Smart Contracts': 'bg-blue-500', 'DeFi Ecosystem': 'bg-indigo-500', 'Risk-Free Benchmark': 'bg-gray-500', 'Monetary Policy Signal': 'bg-teal-500', 'Global Safe Haven': 'bg-cyan-500', 'Diversified Indexing': 'bg-lime-500', 'US Market Exposure': 'bg-emerald-500', 'Passive Investing': 'bg-fuchsia-500', 'Sector Focus': 'bg-rose-500', 'Risk Managed': 'bg-violet-500' };
                 const color = colors[name] |
 | 'bg-sky-500';
                 philosophyVectors.innerHTML += `<div><div class="flex justify-between text-sm mb-1"><span>${name}</span><span>${value}%</span></div><div class="w-full progress-bar-bg rounded-full h-2"><div class="${color} h-2 rounded-full" style="width: ${value}%"></div></div></div>`;
@@ -242,7 +233,7 @@
                 void sentimentPanel.offsetWidth;
                 sentimentPanel.classList.add('flash-update');
                 sentimentIndex++;
-            }
+            };
             updateSentiment();
             if (data.sentiments.length > 1) {
                  liveSentimentInterval = setInterval(updateSentiment, 5000);
@@ -261,7 +252,8 @@
             if (data.relations.people && data.relations.people.length > 0) {
                 let peopleHtml = '<h3 class="text-md font-semibold text-gray-200 mb-2">Key People</h3><ul class="list-none space-y-2">';
                 data.relations.people.forEach(p => {
-                    peopleHtml += `<li class="info-list-item pb-2"><p class="font-semibold text-gray-100">${p.label} <span class="text-xs text-purple-400 font-normal ml-1">(${p.role})</span></p><p class="text-xs text-gray-400">${p.philosophy}</p></li>`;
+                    peopleHtml += `<li class="info-list-item pb-2"><p class="font-semibold text-gray-100">${p.label} <span class="text-xs text-purple-400 font-normal ml-1">(${p.role})</span></p><p class="text-xs text-gray-400">${p.philosophy |
+| ''}</p></li>`;
                 });
                 infoDetails.innerHTML += peopleHtml + '</ul>';
             }
@@ -294,17 +286,23 @@
             const data = assetData[assetId];
             if (!data) return;
             
-            const nodesToShow =; // Start with the clicked asset
+            const nodesToShow =; 
             const edgesToShow =;
 
-            data.relations.people.forEach(p => {
-                nodesToShow.push({ id: p.id, label: p.label, group: 'person', value: 15 });
-                edgesToShow.push({ from: assetId, to: p.id, label: 'Related To' });
-            });
-            data.relations.companies.forEach(c => {
-                 nodesToShow.push({ id: c.id, label: c.label, group: 'company', value: 15 });
-                 edgesToShow.push({ from: assetId, to: c.id, label: 'Related To' });
-            });
+            if (data.relations) { // Check if relations exist
+                if (data.relations.people) {
+                    data.relations.people.forEach(p => {
+                        nodesToShow.push({ id: p.id, label: p.label, group: 'person', value: 15 });
+                        edgesToShow.push({ from: assetId, to: p.id, label: 'Related To' });
+                    });
+                }
+                if (data.relations.companies) {
+                    data.relations.companies.forEach(c => {
+                        nodesToShow.push({ id: c.id, label: c.label, group: 'company', value: 15 });
+                        edgesToShow.push({ from: assetId, to: c.id, label: 'Related To' });
+                    });
+                }
+            }
             
             currentDisplayedNodes.clear();
             currentDisplayedNodes.add(nodesToShow);
@@ -316,10 +314,9 @@
             updateInfoPanel(assetId);
         }
 
-        // --- EVENT LISTENERS ---
         network.on('click', function(params) {
             if (params.nodes.length > 0) {
-                const nodeId = params.nodes;
+                const nodeId = params.nodes; // Corrected: params.nodes is an array
                 if (assetData[nodeId]) { 
                     displayAndExpandNode(nodeId);
                 }
@@ -342,19 +339,22 @@
             currentDisplayedNodes.clear();
             currentDisplayedNodes.add(filteredNodesData);
             edges.clear();
-            // Don't reset panels if search yields results, allow user to click on a searched node
+            
             if (filteredNodesData.length === 0) {
                  sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">No assets found for "${searchTerm}".</p>`;
-            } else if (filteredNodesData.length === 1) {
-                // If only one result, automatically select and expand it
+                 infoPanel.classList.add('hidden');
+                 defaultPanelView.classList.remove('hidden');
+                 assetSpecificView.classList.add('hidden');
+            } else if (filteredNodesData.length === 1 && assetData.id]) {
                 displayAndExpandNode(filteredNodesData.id);
             } else {
                  sentimentPanel.innerHTML = `<p class="text-sm font-mono text-gray-400">Multiple assets found. Click one to explore.</p>`;
+                 infoPanel.classList.add('hidden');
+                 defaultPanelView.classList.remove('hidden');
+                 assetSpecificView.classList.add('hidden');
             }
-            infoPanel.classList.add('hidden'); // Hide info panel until a node is clicked from search results
         });
 
-        // Fit the network on initial load
         network.on("stabilizationIterationsDone", () => network.fit());
         
     </script>
